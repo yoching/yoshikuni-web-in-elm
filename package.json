@@ -1,0 +1,30 @@
+{
+  "name": "elm-pure-tailwind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=development",
+    "dev": "webpack serve --mode development --port 3000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.3.1",
+    "autoprefixer": "^10.4.2",
+    "css-loader": "^6.6.0",
+    "elm-asset-webpack-loader": "^1.1.3",
+    "elm-webpack-loader": "^8.0.0",
+    "file-loader": "^6.2.0",
+    "postcss": "^8.4.6",
+    "postcss-loader": "^6.2.1",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.0.18",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.1"
+  }
+}
