@@ -80,8 +80,11 @@ initialPosts =
 init : Flags -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ url key =
     case Url.Parser.parse routeParser url of
-        Just route -> ( Model initialPosts key url route, Cmd.none )
-        Nothing -> ( Model initialPosts key url Profile, Cmd.none )
+        Just route ->
+            ( Model initialPosts key url route, Cmd.none )
+
+        Nothing ->
+            ( Model initialPosts key url Profile, Cmd.none )
 
 
 
@@ -240,19 +243,19 @@ profileHtml =
                         ]
                     ]
                 , p []
-                    [ text "🧑🏻\u{200D}💻 My technical interests include Functional Programming, Interactive UI development, and various tools that support software development. I’ve given many presentations about these topics, the slides of which you can find at my"
+                    [ text "🧑🏻\u{200D}💻 My technical interests include Functional Programming, Interactive UI development, and various tools that support software development. I’ve given many presentations about these topics, the slides of which you can find at my "
                     , a
                         [ Attr.href "https://speakerdeck.com/yoching"
                         , Attr.class "underline underline-offset-4"
                         ]
                         [ text "SpeakerDeck" ]
-                    , text ". There are some experimental projects and codes on my"
+                    , text ". There are some experimental projects and codes on my "
                     , a
                         [ Attr.href "https://github.com/yoching?tab=repositories"
                         , Attr.class "underline underline-offset-4"
                         ]
                         [ text "GitHub" ]
-                    , text "as well. Also, I enjoy doing pair-programming and using scrum/agile methodologies when working in a team."
+                    , text " as well. Also, I enjoy doing pair-programming and using scrum/agile methodologies when working in a team."
                     ]
                 , p []
                     [ text "📚 Apart from professional experience, I am passionate about interdisciplinary fields of technology and society. This relates to my Master’s degree in Interdisciplinary Information Studies at The University of Tokyo in 2013. I’m eager to find opportunities to develop this passion further." ]
@@ -261,7 +264,7 @@ profileHtml =
                 , p []
                     [ text "✨ Besides work, I like listening to the radio, thinking about philosophical ideas, visiting art exhibitions, reading books, and so on." ]
                 , p []
-                    [ text "If you are interested to learn more about my work experience, please read my CV or"
+                    [ text "If you are interested to learn more about my work experience, please read my CV or "
                     , a
                         [ Attr.href "https://linkedin.com/in/yoshikunikato"
                         , Attr.class "underline underline-offset-4"
@@ -295,7 +298,7 @@ profileHtml =
 
 postsView : List Post -> Html Msg
 postsView posts =
-    div [ class "space-y-3" ] <| List.map postView posts
+    div [ class "space-y-6" ] <| List.map postView posts
 
 
 postView : Post -> Html Msg
