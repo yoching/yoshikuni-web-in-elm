@@ -214,7 +214,7 @@ profileHtml =
     div [ Attr.class "dark:bg-zinc-900" ]
         [ div [ Attr.class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
             [ h1 [ Attr.class "font-bold text-[40px]" ]
-                [ text "Hello, I'm Yoshikuni!" ]
+                [ text "Hello, I'm Yoshi!" ]
             , div [ Attr.class "my-8" ]
                 [ img
                     [ Attr.src "require:src/img/profile.png"
