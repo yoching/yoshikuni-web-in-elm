@@ -163,24 +163,25 @@ view model =
     case model.route of
         Profile ->
             { title = "Profile"
-            , body = profileView |> wholeView model
+            , body = profileView |> bodyList model
             }
 
         Blog ->
             { title = "Blog"
-            , body = postsView model.posts |> wholeView model
+            , body = postsView model.posts |> bodyList model
             }
 
 
-wholeView : Model -> Html Msg -> List (Html Msg)
-wholeView model pageContent =
+bodyList : Model -> Html Msg -> List (Html Msg)
+bodyList model pageContent =
     [ div
-        [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen"
-        , class <| modeClassName model.currentMode
-        ]
-        [ header model
-        , pageView
-            [ pageContent ]
+        [ class <| modeClassName model.currentMode ]
+        [ div
+            [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen" ]
+            [ header model
+            , pageView
+                [ pageContent ]
+            ]
         ]
     ]
 
@@ -284,9 +285,10 @@ modeIcon mode =
 
 header : Model -> Html Msg
 header model =
-    Html.header []
+    Html.header
+        [ class "dark:bg-zinc-900" ]
         [ nav
-            [ class "flex max-w-5xl mx-auto h-16 justify-between dark:text-white/80 dark:bg-zinc-900 leading-[4rem]" ]
+            [ class "flex max-w-5xl mx-auto h-16 justify-between dark:text-white/80  leading-[4rem]" ]
             [ div
                 [ class "flex mx-6" ]
                 [ a
