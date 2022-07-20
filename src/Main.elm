@@ -5,7 +5,7 @@ module Main exposing (..)
 import Browser exposing (..)
 import Browser.Navigation as Nav
 import Html exposing (..)
-import Html.Attributes as Attr exposing (class, href, title)
+import Html.Attributes exposing (class, href, src, title)
 import Json.Decode exposing (..)
 import Time exposing (..)
 import Url
@@ -136,9 +136,11 @@ view model =
         Profile ->
             { title = "Profile"
             , body =
-                [ div [ class "bg-stone-100", class "dark:bg-zinc-900" ]
+                [ div
+                    [ class "bg-stone-100 dark:bg-zinc-900" ]
                     [ header
-                    , pageHtml [ profileHtml ]
+                    , pageView
+                        [ profileView ]
                     ]
                 ]
             }
@@ -146,9 +148,11 @@ view model =
         Blog ->
             { title = "Blog"
             , body =
-                [ div [ class "bg-stone-100", class "dark:bg-zinc-900 min-h-screen" ]
+                [ div
+                    [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen" ]
                     [ header
-                    , pageHtml [ postsView model.posts ]
+                    , pageView
+                        [ postsView model.posts ]
                     ]
                 ]
             }
@@ -158,40 +162,25 @@ header : Html Msg
 header =
     Html.header []
         [ nav
-            [ class "flex"
-            , class "max-w-5xl"
-            , class "mx-auto"
-            , class "h-16"
-            , class "justify-between"
-            ]
-            [ div [ class "flex", class "mx-6" ]
+            [ class "flex max-w-5xl mx-auto h-16 justify-between" ]
+            [ div
+                [ class "flex mx-6" ]
                 [ a
-                    [ title "Yoshikuni Kato"
-                    , href "./"
-                    , class "font-bold"
-                    , class "text-2xl"
-                    , class "my-auto"
-                    ]
+                    [ title "Yoshikuni Kato", href "./", class "font-bold text-2xl my-auto" ]
                     [ text "Yoshikuni Kato" ]
                 ]
             , ul
-                [ class "flex"
-                , class "space-x-6"
-                , class "my-auto"
-                , class "mx-6"
-                ]
-                [ li []
+                [ class "flex space-x-6 my-auto mx-6" ]
+                [ li
+                    []
                     [ a
-                        [ title "Profile"
-                        , href "./profile"
-                        ]
+                        [ title "Profile", href "./profile" ]
                         [ text "Profile" ]
                     ]
-                , li []
+                , li
+                    []
                     [ a
-                        [ title "Blog"
-                        , href "./blog"
-                        ]
+                        [ title "Blog", href "./blog" ]
                         [ text "Blog" ]
                     ]
                 ]
@@ -199,32 +188,33 @@ header =
         ]
 
 
-pageHtml : List (Html Msg) -> Html Msg
-pageHtml contents =
-    Html.main_
-        [ Attr.class "dark:bg-zinc-900" ]
+pageView : List (Html Msg) -> Html Msg
+pageView contents =
+    main_
+        [ class "dark:bg-zinc-900" ]
         [ div
-            [ Attr.class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
+            [ class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
             contents
         ]
 
 
-profileHtml : Html Msg
-profileHtml =
-    div [ Attr.class "dark:bg-zinc-900" ]
-        [ div [ Attr.class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
-            [ h1 [ Attr.class "font-bold text-[40px]" ]
+profileView : Html Msg
+profileView =
+    div [ class "dark:bg-zinc-900" ]
+        [ div [ class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
+            [ h1
+                [ class "font-bold text-[40px]" ]
                 [ text "Hello, I'm Yoshikuni!" ]
-            , div [ Attr.class "my-8" ]
+            , div
+                [ class "my-8" ]
                 [ img
-                    [ Attr.src "require:src/img/profile.png"
-                    , Attr.class "w-48 mx-auto my-2 rounded"
-                    ]
+                    [ src "require:src/img/profile.png", class "w-48 mx-auto my-2 rounded" ]
                     []
                 ]
             , div
-                [ Attr.class "space-y-5" ]
-                [ p []
+                [ class "space-y-5" ]
+                [ p
+                    []
                     [ text "I'm a software engineer with 8+ years of work experience in application development."
                     , br []
                         []
@@ -234,60 +224,59 @@ profileHtml =
                     [ text "At the moment, I’m working as a freelance engineer and focusing on two things:" ]
                 , div []
                     [ ol
-                        [ Attr.class "list-decimal list-inside"
-                        ]
-                        [ li []
+                        [ class "list-decimal list-inside" ]
+                        [ li
+                            []
                             [ text "Helping client projects by utilizing my iOS/Swift skills and experience" ]
-                        , li []
+                        , li
+                            []
                             [ text "Exploring new programming languages and technology for my future work" ]
                         ]
                     ]
-                , p []
+                , p
+                    []
                     [ text "🧑🏻\u{200D}💻 My technical interests include Functional Programming, Interactive UI development, and various tools that support software development. I’ve given many presentations about these topics, the slides of which you can find at my "
                     , a
-                        [ Attr.href "https://speakerdeck.com/yoching"
-                        , Attr.class "underline underline-offset-4"
-                        ]
+                        [ href "https://speakerdeck.com/yoching", class "underline underline-offset-4" ]
                         [ text "SpeakerDeck" ]
                     , text ". There are some experimental projects and codes on my "
                     , a
-                        [ Attr.href "https://github.com/yoching?tab=repositories"
-                        , Attr.class "underline underline-offset-4"
-                        ]
+                        [ href "https://github.com/yoching?tab=repositories", class "underline underline-offset-4" ]
                         [ text "GitHub" ]
                     , text " as well. Also, I enjoy doing pair-programming and using scrum/agile methodologies when working in a team."
                     ]
-                , p []
+                , p
+                    []
                     [ text "📚 Apart from professional experience, I am passionate about interdisciplinary fields of technology and society. This relates to my Master’s degree in Interdisciplinary Information Studies at The University of Tokyo in 2013. I’m eager to find opportunities to develop this passion further." ]
-                , p []
+                , p
+                    []
                     [ text "🌏 Originally from Japan, I moved to Prague, the Czech Republic, in 2019 to gain experience working in an international environment. After working on several projects with international colleagues and clients, in 2021, I moved to Amsterdam, the Netherlands, where I can work as a freelancer, to be more flexible about technology choice and to work on a wider variety of projects. These moves were motivated by my ambition to contribute to software development culture." ]
-                , p []
+                , p
+                    []
                     [ text "✨ Besides work, I like listening to the radio, thinking about philosophical ideas, visiting art exhibitions, reading books, and so on." ]
-                , p []
+                , p
+                    []
                     [ text "If you are interested to learn more about my work experience, please read my CV or "
                     , a
-                        [ Attr.href "https://linkedin.com/in/yoshikunikato"
-                        , Attr.class "underline underline-offset-4"
-                        ]
+                        [ href "https://linkedin.com/in/yoshikunikato", class "underline underline-offset-4" ]
                         [ text "LinkedIn" ]
                     , text ". My portfolio is also available on request."
                     ]
-                , p []
+                , p
+                    []
                     [ text "I’m looking forward to hearing from you and discussing future projects together." ]
                 ]
-            , div []
+            , div
+                []
                 [ h3
-                    [ Attr.class "font-bold text-2xl pt-5 mt-6 mb-4"
-                    ]
+                    [ class "font-bold text-2xl pt-5 mt-6 mb-4" ]
                     [ text "Contacts" ]
-                , ul []
+                , ul
+                    []
                     [ li
-                        [ Attr.class "list-disc list-inside"
-                        ]
+                        [ class "list-disc list-inside" ]
                         [ a
-                            [ Attr.href "mailto:yoshikuni.kato.g@gmail.com"
-                            , Attr.class "underline underline-offset-4"
-                            ]
+                            [ href "mailto:yoshikuni.kato.g@gmail.com", class "underline underline-offset-4" ]
                             [ text "yoshikuni.kato.g@gmail.com" ]
                         ]
                     ]
@@ -305,20 +294,19 @@ postView : Post -> Html Msg
 postView post =
     article
         [ class "bg-white rounded-lg shadow p-5 transition active:scale-95" ]
-        [ Html.header []
+        [ Html.header
+            []
             [ h2
-                [ class "text-2xl font-bold text-black/80"
-                ]
+                [ class "text-2xl font-bold text-black/80" ]
                 [ text post.title ]
             ]
         , section
-            [ class "text-sm leading-relaxed text-ellipsis line-clamp-2 text-black/60 my-2"
-            ]
-            [ p []
+            [ class "text-sm leading-relaxed text-ellipsis line-clamp-2 text-black/60 my-2" ]
+            [ p
+                []
                 [ text post.description ]
             ]
         , footer
-            [ class "text-sm text-black/60"
-            ]
+            [ class "text-sm text-black/60" ]
             [ text post.footerText ]
         ]
