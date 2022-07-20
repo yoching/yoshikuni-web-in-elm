@@ -6,7 +6,10 @@ import Browser exposing (..)
 import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (class, href, src, title)
+import Html.Events exposing (onClick)
 import Json.Decode exposing (..)
+import Svg
+import Svg.Attributes as SvgAttr
 import Time exposing (..)
 import Url
 import Url.Parser
@@ -25,6 +28,7 @@ type alias Post =
 
 type alias Model =
     { posts : List Post
+    , currentMode : Mode
     , key : Nav.Key
     , url : Url.Url
     , route : Route
@@ -42,6 +46,21 @@ type alias Flags =
 type Route
     = Profile
     | Blog
+
+
+type Mode
+    = Dark
+    | Light
+
+
+modeClassName : Mode -> String
+modeClassName mode =
+    case mode of
+        Dark ->
+            "dark"
+
+        Light ->
+            "light"
 
 
 routeParser : Url.Parser.Parser (Route -> a) a
@@ -81,10 +100,10 @@ init : Flags -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ url key =
     case Url.Parser.parse routeParser url of
         Just route ->
-            ( Model initialPosts key url route, Cmd.none )
+            ( Model initialPosts Dark key url route, Cmd.none )
 
         Nothing ->
-            ( Model initialPosts key url Profile, Cmd.none )
+            ( Model initialPosts Dark key url Profile, Cmd.none )
 
 
 
@@ -95,6 +114,7 @@ init _ url key =
 type Msg
     = UrlChanged Url.Url
     | LinkClicked UrlRequest
+    | ModeClicked
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -116,6 +136,14 @@ update msg model =
                 External href ->
                     ( model, Nav.load href )
 
+        ModeClicked ->
+            case model.currentMode of
+                Light ->
+                    ( { model | currentMode = Dark }, Cmd.none )
+
+                Dark ->
+                    ( { model | currentMode = Light }, Cmd.none )
+
 
 
 -- SUBSCRIPTIONS
@@ -135,42 +163,156 @@ view model =
     case model.route of
         Profile ->
             { title = "Profile"
-            , body =
-                [ div
-                    [ class "bg-stone-100 dark:bg-zinc-900" ]
-                    [ header
-                    , pageView
-                        [ profileView ]
-                    ]
-                ]
+            , body = profileView |> wholeView model
             }
 
         Blog ->
             { title = "Blog"
-            , body =
-                [ div
-                    [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen" ]
-                    [ header
-                    , pageView
-                        [ postsView model.posts ]
-                    ]
-                ]
+            , body = postsView model.posts |> wholeView model
             }
 
 
-header : Html Msg
-header =
+wholeView : Model -> Html Msg -> List (Html Msg)
+wholeView model pageContent =
+    [ div
+        [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen"
+        , class <| modeClassName model.currentMode
+        ]
+        [ header model
+        , pageView
+            [ pageContent ]
+        ]
+    ]
+
+
+modeIcon : Mode -> Html Msg
+modeIcon mode =
+    case mode of
+        Dark ->
+            Svg.svg
+                [ SvgAttr.id "sun"
+                , SvgAttr.width "24"
+                , SvgAttr.height "18"
+                , SvgAttr.viewBox "0 0 24 24"
+                , SvgAttr.fill "none"
+                , SvgAttr.stroke "currentColor"
+                , SvgAttr.strokeWidth "2"
+                , SvgAttr.strokeLinecap "round"
+                , SvgAttr.strokeLinejoin "round"
+                ]
+                [ Svg.circle
+                    [ SvgAttr.cx "12"
+                    , SvgAttr.cy "12"
+                    , SvgAttr.r "5"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "12"
+                    , SvgAttr.y1 "1"
+                    , SvgAttr.x2 "12"
+                    , SvgAttr.y2 "3"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "12"
+                    , SvgAttr.y1 "21"
+                    , SvgAttr.x2 "12"
+                    , SvgAttr.y2 "23"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "4.22"
+                    , SvgAttr.y1 "4.22"
+                    , SvgAttr.x2 "5.64"
+                    , SvgAttr.y2 "5.64"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "18.36"
+                    , SvgAttr.y1 "18.36"
+                    , SvgAttr.x2 "19.78"
+                    , SvgAttr.y2 "19.78"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "1"
+                    , SvgAttr.y1 "12"
+                    , SvgAttr.x2 "3"
+                    , SvgAttr.y2 "12"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "21"
+                    , SvgAttr.y1 "12"
+                    , SvgAttr.x2 "23"
+                    , SvgAttr.y2 "12"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "4.22"
+                    , SvgAttr.y1 "19.78"
+                    , SvgAttr.x2 "5.64"
+                    , SvgAttr.y2 "18.36"
+                    ]
+                    []
+                , Svg.line
+                    [ SvgAttr.x1 "18.36"
+                    , SvgAttr.y1 "5.64"
+                    , SvgAttr.x2 "19.78"
+                    , SvgAttr.y2 "4.22"
+                    ]
+                    []
+                ]
+
+        Light ->
+            Svg.svg
+                [ SvgAttr.id "moon"
+                , SvgAttr.width "24"
+                , SvgAttr.height "18"
+                , SvgAttr.viewBox "0 0 24 24"
+                , SvgAttr.fill "none"
+                , SvgAttr.stroke "currentColor"
+                , SvgAttr.strokeWidth "2"
+                , SvgAttr.strokeLinecap "round"
+                , SvgAttr.strokeLinejoin "round"
+                ]
+                [ Svg.path
+                    [ SvgAttr.d "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" ]
+                    []
+                ]
+
+
+header : Model -> Html Msg
+header model =
     Html.header []
         [ nav
-            [ class "flex max-w-5xl mx-auto h-16 justify-between" ]
+            [ class "flex max-w-5xl mx-auto h-16 justify-between dark:text-white/80 dark:bg-zinc-900 leading-[4rem]" ]
             [ div
                 [ class "flex mx-6" ]
                 [ a
-                    [ title "Yoshikuni Kato", href "./", class "font-bold text-2xl my-auto" ]
+                    [ title "Yoshikuni Kato", href "./", class "font-bold text-2xl leading-[4rem]" ]
                     [ text "Yoshikuni Kato" ]
+                , span
+                    [ class "mx-1 inline-flex leading-[4rem]" ]
+                    [ button
+                        [ class "mx-1 text-2xl leading-[4rem] pt-1", onClick ModeClicked ]
+                        [ modeIcon model.currentMode ]
+                    , ul
+                        [ class "flex" ]
+                        [ li
+                            [ class "mx-1" ]
+                            [ text "|" ]
+                        , li
+                            [ class "mx-1 text-base leading-[4rem]" ]
+                            [ a
+                                [ title "日本語", href "./" ]
+                                [ text "日本語" ]
+                            ]
+                        ]
+                    ]
                 ]
             , ul
-                [ class "flex space-x-6 my-auto mx-6" ]
+                [ class "flex space-x-6 mx-6" ]
                 [ li
                     []
                     [ a
