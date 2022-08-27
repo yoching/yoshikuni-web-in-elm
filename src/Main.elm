@@ -7,12 +7,11 @@ import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (class, href, src, title)
 import Html.Events exposing (onClick)
-import Json.Decode exposing (..)
-import Svg
-import Svg.Attributes as SvgAttr
+import Route exposing (..)
+import SvgImages exposing (..)
 import Time exposing (..)
 import Url
-import Url.Parser exposing ((</>), Parser, int, map, oneOf, s, string)
+import Url.Parser
 
 
 
@@ -35,31 +34,6 @@ type alias Model =
     }
 
 
-
--- MAIN
-
-
-type alias Flags =
-    {}
-
-
-type alias Route =
-    { page : Page
-    , language : Language
-    }
-
-
-type Page
-    = Home
-    | Profile
-    | Blog
-
-
-type Language
-    = Default
-    | Japanese
-
-
 type Mode
     = Dark
     | Light
@@ -75,16 +49,12 @@ modeClassName mode =
             "light"
 
 
-routeParser : Url.Parser.Parser (Route -> a) a
-routeParser =
-    Url.Parser.oneOf
-        [ Url.Parser.map { page = Profile, language = Default } (Url.Parser.s "profile")
-        , Url.Parser.map { page = Blog, language = Default } (Url.Parser.s "blog")
-        , Url.Parser.map { page = Home, language = Japanese } (Url.Parser.s "jp")
-        , Url.Parser.map { page = Profile, language = Japanese } (Url.Parser.s "jp" </> Url.Parser.s "profile")
-        , Url.Parser.map { page = Blog, language = Japanese } (Url.Parser.s "jp" </> Url.Parser.s "blog")
-        , Url.Parser.map { page = Home, language = Default } Url.Parser.top
-        ]
+
+-- MAIN
+
+
+type alias Flags =
+    {}
 
 
 main : Program Flags Model Msg
@@ -226,103 +196,6 @@ bodyList model pageContent =
     ]
 
 
-modeIcon : Mode -> Html Msg
-modeIcon mode =
-    case mode of
-        Dark ->
-            Svg.svg
-                [ SvgAttr.id "sun"
-                , SvgAttr.width "24"
-                , SvgAttr.height "18"
-                , SvgAttr.viewBox "0 0 24 24"
-                , SvgAttr.fill "none"
-                , SvgAttr.stroke "currentColor"
-                , SvgAttr.strokeWidth "2"
-                , SvgAttr.strokeLinecap "round"
-                , SvgAttr.strokeLinejoin "round"
-                ]
-                [ Svg.circle
-                    [ SvgAttr.cx "12"
-                    , SvgAttr.cy "12"
-                    , SvgAttr.r "5"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "12"
-                    , SvgAttr.y1 "1"
-                    , SvgAttr.x2 "12"
-                    , SvgAttr.y2 "3"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "12"
-                    , SvgAttr.y1 "21"
-                    , SvgAttr.x2 "12"
-                    , SvgAttr.y2 "23"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "4.22"
-                    , SvgAttr.y1 "4.22"
-                    , SvgAttr.x2 "5.64"
-                    , SvgAttr.y2 "5.64"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "18.36"
-                    , SvgAttr.y1 "18.36"
-                    , SvgAttr.x2 "19.78"
-                    , SvgAttr.y2 "19.78"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "1"
-                    , SvgAttr.y1 "12"
-                    , SvgAttr.x2 "3"
-                    , SvgAttr.y2 "12"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "21"
-                    , SvgAttr.y1 "12"
-                    , SvgAttr.x2 "23"
-                    , SvgAttr.y2 "12"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "4.22"
-                    , SvgAttr.y1 "19.78"
-                    , SvgAttr.x2 "5.64"
-                    , SvgAttr.y2 "18.36"
-                    ]
-                    []
-                , Svg.line
-                    [ SvgAttr.x1 "18.36"
-                    , SvgAttr.y1 "5.64"
-                    , SvgAttr.x2 "19.78"
-                    , SvgAttr.y2 "4.22"
-                    ]
-                    []
-                ]
-
-        Light ->
-            Svg.svg
-                [ SvgAttr.id "moon"
-                , SvgAttr.width "24"
-                , SvgAttr.height "18"
-                , SvgAttr.viewBox "0 0 24 24"
-                , SvgAttr.fill "none"
-                , SvgAttr.stroke "currentColor"
-                , SvgAttr.strokeWidth "2"
-                , SvgAttr.strokeLinecap "round"
-                , SvgAttr.strokeLinejoin "round"
-                ]
-                [ Svg.path
-                    [ SvgAttr.d "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" ]
-                    []
-                ]
-
-
 siteHeader : Model -> Html Msg
 siteHeader model =
     let
@@ -349,8 +222,16 @@ siteHeader model =
 
                 Japanese ->
                     "English"
+
+        modeIcon =
+            case model.currentMode of
+                Dark ->
+                    darkModeIcon
+
+                Light ->
+                    lightModeIcon
     in
-    Html.header
+    header
         [ class "dark:bg-zinc-900" ]
         [ nav
             [ class "flex max-w-5xl mx-auto h-16 justify-between dark:text-white/80  leading-[4rem]" ]
@@ -363,7 +244,7 @@ siteHeader model =
                     [ class "mx-1 inline-flex leading-[4rem]" ]
                     [ button
                         [ class "mx-1 text-2xl leading-[4rem] pt-1", onClick ModeClicked ]
-                        [ modeIcon model.currentMode ]
+                        [ modeIcon ]
                     , ul
                         [ class "flex" ]
                         [ li
@@ -514,7 +395,7 @@ postView : Post -> Html Msg
 postView post =
     article
         [ class "bg-white dark:bg-[#2e2e33] rounded-lg shadow p-5 transition active:scale-95" ]
-        [ Html.header
+        [ header
             []
             [ h2
                 [ class "text-2xl font-bold text-black/80 dark:text-white/80" ]
