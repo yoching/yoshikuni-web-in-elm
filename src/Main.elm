@@ -44,7 +44,8 @@ type alias Flags =
 
 
 type Route
-    = Profile
+    = Home
+    | Profile
     | Blog
 
 
@@ -68,6 +69,7 @@ routeParser =
     Url.Parser.oneOf
         [ Url.Parser.map Profile (Url.Parser.s "profile")
         , Url.Parser.map Blog (Url.Parser.s "blog")
+        , Url.Parser.map Home Url.Parser.top
         ]
 
 
@@ -103,7 +105,7 @@ init _ url key =
             ( Model initialPosts Dark key url route, Cmd.none )
 
         Nothing ->
-            ( Model initialPosts Dark key url Profile, Cmd.none )
+            ( Model initialPosts Dark key url Home, Cmd.none )
 
 
 
@@ -161,26 +163,31 @@ subscriptions _ =
 view : Model -> Document Msg
 view model =
     case model.route of
+        Home ->
+            { title = "Yoshikuni Kato"
+            , body = bodyList model [ homeView model ]
+            }
+
         Profile ->
             { title = "Profile"
-            , body = profileView |> bodyList model
+            , body = bodyList model [ profileView ]
             }
 
         Blog ->
             { title = "Blog"
-            , body = postsView model.posts |> bodyList model
+            , body = bodyList model [ postsView model.posts ]
             }
 
 
-bodyList : Model -> Html Msg -> List (Html Msg)
+bodyList : Model -> List (Html Msg) -> List (Html Msg)
 bodyList model pageContent =
     [ div
         [ class <| modeClassName model.currentMode ]
         [ div
             [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen" ]
-            [ header model
+            [ siteHeader model
             , pageView
-                [ pageContent ]
+                pageContent
             ]
         ]
     ]
@@ -283,8 +290,8 @@ modeIcon mode =
                 ]
 
 
-header : Model -> Html Msg
-header model =
+siteHeader : Model -> Html Msg
+siteHeader model =
     Html.header
         [ class "dark:bg-zinc-900" ]
         [ nav
@@ -307,7 +314,7 @@ header model =
                         , li
                             [ class "mx-1 text-base leading-[4rem]" ]
                             [ a
-                                [ title "日本語", href "./" ]
+                                [ title "日本語", href "./ja" ]
                                 [ text "日本語" ]
                             ]
                         ]
@@ -345,7 +352,8 @@ pageView contents =
 profileView : Html Msg
 profileView =
     div [ class "dark:bg-zinc-900" ]
-        [ div [ class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
+        [ div
+            [ class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
             [ h1
                 [ class "font-bold text-[40px]" ]
                 [ text "Hello, I'm Yoshikuni!" ]
@@ -394,7 +402,7 @@ profileView =
                     [ text "📚 Apart from professional experience, I am passionate about interdisciplinary fields of technology and society. This relates to my Master’s degree in Interdisciplinary Information Studies at The University of Tokyo in 2013. I’m eager to find opportunities to develop this passion further." ]
                 , p
                     []
-                    [ text "🌏 Originally from Japan, I moved to Prague, the Czech Republic, in 2019 to gain experience working in an international environment. After working on several projects with international colleagues and clients, in 2021, I moved to Amsterdam, the Netherlands, where I can work as a freelancer, to be more flexible about technology choice and to work on a wider variety of projects. These moves were motivated by my ambition to contribute to software development culture." ]
+                    [ text "🌏 Originally from Japan, I moved to Prague, the Czech Republic, in 2019 to gain experience working in an international environment. After working on several projects with international colleagues and clients, in 2021, I moved to Amsterdam, the Netherlands, where I can work as a freelancer, to be more ible about technology choice and to work on a wider variety of projects. These moves were motivated by my ambition to contribute to software development culture." ]
                 , p
                     []
                     [ text "✨ Besides work, I like listening to the radio, thinking about philosophical ideas, visiting art exhibitions, reading books, and so on." ]
@@ -437,20 +445,57 @@ postsView posts =
 postView : Post -> Html Msg
 postView post =
     article
-        [ class "bg-white rounded-lg shadow p-5 transition active:scale-95" ]
+        [ class "bg-white dark:bg-[#2e2e33] rounded-lg shadow p-5 transition active:scale-95" ]
         [ Html.header
             []
             [ h2
-                [ class "text-2xl font-bold text-black/80" ]
+                [ class "text-2xl font-bold text-black/80 dark:text-white/80" ]
                 [ text post.title ]
             ]
         , section
-            [ class "text-sm leading-relaxed text-ellipsis line-clamp-2 text-black/60 my-2" ]
+            [ class "text-sm leading-relaxed text-ellipsis line-clamp-2 text-black/60 my-2 dark:text-white/60" ]
             [ p
                 []
                 [ text post.description ]
             ]
         , footer
-            [ class "text-sm text-black/60" ]
+            [ class "text-sm text-black/60 dark:text-white/60" ]
             [ text post.footerText ]
+        ]
+
+
+homeView : Model -> Html Msg
+homeView model =
+    div [ class "space-y-6" ] <|
+        homeTopArticleView
+            :: List.map postView model.posts
+
+
+homeTopArticleView : Html Msg
+homeTopArticleView =
+    article
+        [ class "flex flex-col mt-6 mb-12 justify-center min-h-[320px]" ]
+        [ header
+            []
+            [ h1
+                []
+                [ text "Hello, I’m Yoshikuni!" ]
+            ]
+        , section
+            []
+            [ p
+                []
+                [ text "A software engineer with 8+ years of work experience in application development."
+                , br [] []
+                , text "Based in Amsterdam🇳🇱. Originally from Japan🇯🇵."
+                , br [] []
+                , a
+                    [ href "/profile" ]
+                    [ text "Read my profile" ]
+                , text " to know more about me!"
+                ]
+            ]
+        , footer
+            []
+            []
         ]
