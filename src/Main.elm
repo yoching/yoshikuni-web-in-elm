@@ -12,7 +12,7 @@ import Svg
 import Svg.Attributes as SvgAttr
 import Time exposing (..)
 import Url
-import Url.Parser
+import Url.Parser exposing ((</>), Parser, int, map, oneOf, s, string)
 
 
 
@@ -43,10 +43,21 @@ type alias Flags =
     {}
 
 
-type Route
+type alias Route =
+    { page : Page
+    , language : Language
+    }
+
+
+type Page
     = Home
     | Profile
     | Blog
+
+
+type Language
+    = Default
+    | Japanese
 
 
 type Mode
@@ -67,9 +78,12 @@ modeClassName mode =
 routeParser : Url.Parser.Parser (Route -> a) a
 routeParser =
     Url.Parser.oneOf
-        [ Url.Parser.map Profile (Url.Parser.s "profile")
-        , Url.Parser.map Blog (Url.Parser.s "blog")
-        , Url.Parser.map Home Url.Parser.top
+        [ Url.Parser.map { page = Profile, language = Default } (Url.Parser.s "profile")
+        , Url.Parser.map { page = Blog, language = Default } (Url.Parser.s "blog")
+        , Url.Parser.map { page = Home, language = Japanese } (Url.Parser.s "jp")
+        , Url.Parser.map { page = Profile, language = Japanese } (Url.Parser.s "jp" </> Url.Parser.s "profile")
+        , Url.Parser.map { page = Blog, language = Japanese } (Url.Parser.s "jp" </> Url.Parser.s "blog")
+        , Url.Parser.map { page = Home, language = Default } Url.Parser.top
         ]
 
 
@@ -105,7 +119,7 @@ init _ url key =
             ( Model initialPosts Dark key url route, Cmd.none )
 
         Nothing ->
-            ( Model initialPosts Dark key url Home, Cmd.none )
+            ( Model initialPosts Dark key url { page = Home, language = Default }, Cmd.none )
 
 
 
@@ -162,21 +176,40 @@ subscriptions _ =
 
 view : Model -> Document Msg
 view model =
-    case model.route of
-        Home ->
-            { title = "Yoshikuni Kato"
-            , body = bodyList model [ homeView model ]
-            }
+    case model.route.language of
+        Default ->
+            case model.route.page of
+                Home ->
+                    { title = "Yoshikuni Kato"
+                    , body = bodyList model [ homeView model ]
+                    }
 
-        Profile ->
-            { title = "Profile"
-            , body = bodyList model [ profileView ]
-            }
+                Profile ->
+                    { title = "Profile"
+                    , body = bodyList model [ profileView ]
+                    }
 
-        Blog ->
-            { title = "Blog"
-            , body = bodyList model [ postsView model.posts ]
-            }
+                Blog ->
+                    { title = "Blog"
+                    , body = bodyList model [ postsView model.posts ]
+                    }
+
+        Japanese ->
+            case model.route.page of
+                Home ->
+                    { title = "かとうよしくに"
+                    , body = bodyList model [ homeJapaneseView ]
+                    }
+
+                Profile ->
+                    { title = "Profile"
+                    , body = bodyList model [ profileJapaneseView ]
+                    }
+
+                Blog ->
+                    { title = "Blog"
+                    , body = bodyList model [ postsJapaneseView ]
+                    }
 
 
 bodyList : Model -> List (Html Msg) -> List (Html Msg)
@@ -292,6 +325,31 @@ modeIcon mode =
 
 siteHeader : Model -> Html Msg
 siteHeader model =
+    let
+        languagePath =
+            case model.route.language of
+                Default ->
+                    "/"
+
+                Japanese ->
+                    "/jp/"
+
+        languageSwitchPath =
+            case model.route.language of
+                Default ->
+                    "./jp"
+
+                Japanese ->
+                    "/"
+
+        languageSwitchTitle =
+            case model.route.language of
+                Default ->
+                    "日本語"
+
+                Japanese ->
+                    "English"
+    in
     Html.header
         [ class "dark:bg-zinc-900" ]
         [ nav
@@ -299,7 +357,7 @@ siteHeader model =
             [ div
                 [ class "flex mx-6" ]
                 [ a
-                    [ title "Yoshikuni Kato", href "./", class "font-bold text-2xl leading-[4rem]" ]
+                    [ title "Yoshikuni Kato", href "/", class "font-bold text-2xl leading-[4rem]" ]
                     [ text "Yoshikuni Kato" ]
                 , span
                     [ class "mx-1 inline-flex leading-[4rem]" ]
@@ -314,8 +372,8 @@ siteHeader model =
                         , li
                             [ class "mx-1 text-base leading-[4rem]" ]
                             [ a
-                                [ title "日本語", href "./ja" ]
-                                [ text "日本語" ]
+                                [ title languageSwitchTitle, href languageSwitchPath ]
+                                [ text languageSwitchTitle ]
                             ]
                         ]
                     ]
@@ -325,13 +383,13 @@ siteHeader model =
                 [ li
                     []
                     [ a
-                        [ title "Profile", href "./profile" ]
+                        [ title "Profile", href <| languagePath ++ "profile" ]
                         [ text "Profile" ]
                     ]
                 , li
                     []
                     [ a
-                        [ title "Blog", href "./blog" ]
+                        [ title "Blog", href <| languagePath ++ "blog" ]
                         [ text "Blog" ]
                     ]
                 ]
@@ -437,9 +495,19 @@ profileView =
         ]
 
 
+profileJapaneseView : Html Msg
+profileJapaneseView =
+    div [] [ text "日本語のプロフィール" ]
+
+
 postsView : List Post -> Html Msg
 postsView posts =
     div [ class "space-y-6" ] <| List.map postView posts
+
+
+postsJapaneseView : Html Msg
+postsJapaneseView =
+    div [] [ text "日本語のブログ" ]
 
 
 postView : Post -> Html Msg
@@ -469,6 +537,11 @@ homeView model =
     div [ class "space-y-6" ] <|
         homeTopArticleView
             :: List.map postView model.posts
+
+
+homeJapaneseView : Html Msg
+homeJapaneseView =
+    div [] [ text "日本語のホーム" ]
 
 
 homeTopArticleView : Html Msg
