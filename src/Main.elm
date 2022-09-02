@@ -230,6 +230,9 @@ siteHeader model =
 
                 Light ->
                     lightModeIcon
+
+        activePageClass =
+            "font-medium border-b-2 border-current"
     in
     header
         [ class "dark:bg-zinc-900" ]
@@ -265,13 +268,33 @@ siteHeader model =
                     []
                     [ a
                         [ title "Profile", href <| languagePath ++ "profile" ]
-                        [ text "Profile" ]
+                        [ span
+                            [ class <|
+                                case model.route.page of
+                                    Profile ->
+                                        activePageClass
+
+                                    _ ->
+                                        ""
+                            ]
+                            [ text "Profile" ]
+                        ]
                     ]
                 , li
                     []
                     [ a
                         [ title "Blog", href <| languagePath ++ "blog" ]
-                        [ text "Blog" ]
+                        [ span
+                            [ class <|
+                                case model.route.page of
+                                    Blog ->
+                                        activePageClass
+
+                                    _ ->
+                                        ""
+                            ]
+                            [ text "Blog" ]
+                        ]
                     ]
                 ]
             ]
