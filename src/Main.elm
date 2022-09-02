@@ -417,7 +417,7 @@ postsJapaneseView =
 postView : Post -> Html Msg
 postView post =
     article
-        [ class "bg-white dark:bg-[#2e2e33] rounded-lg shadow p-5 transition active:scale-95" ]
+        [ class "relative bg-white dark:bg-[#2e2e33] rounded-lg shadow p-5 transition active:scale-95" ]
         [ header
             []
             [ h2
@@ -433,6 +433,9 @@ postView post =
         , footer
             [ class "text-sm text-black/60 dark:text-white/60" ]
             [ text post.footerText ]
+        , a
+            [ class "absolute inset-0" ]
+            []
         ]
 
 
