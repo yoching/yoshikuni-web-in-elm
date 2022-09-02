@@ -5,7 +5,7 @@ module Main exposing (..)
 import Browser exposing (..)
 import Browser.Navigation as Nav
 import Html exposing (..)
-import Html.Attributes exposing (class, href, src, title)
+import Html.Attributes exposing (class, href, rel, src, target, title)
 import Html.Events exposing (onClick)
 import Route exposing (..)
 import SvgImages exposing (..)
@@ -283,7 +283,7 @@ pageView contents =
     main_
         [ class "dark:bg-zinc-900" ]
         [ div
-            [ class "max-w-3xl mx-auto p-10 dark:text-white/80 text-lg" ]
+            [ class "max-w-3xl mx-auto p-6 dark:text-white/80 text-lg" ]
             contents
         ]
 
@@ -432,11 +432,11 @@ homeTopArticleView =
         [ header
             []
             [ h1
-                []
+                [ class "text-4xl font-bold" ]
                 [ text "Hello, I’m Yoshikuni!" ]
             ]
         , section
-            []
+            [ class "my-4 text-base text-black/60 dark:text-white/60" ]
             [ p
                 []
                 [ text "A software engineer with 8+ years of work experience in application development."
@@ -444,12 +444,38 @@ homeTopArticleView =
                 , text "Based in Amsterdam🇳🇱. Originally from Japan🇯🇵."
                 , br [] []
                 , a
-                    [ href "/profile" ]
+                    [ class "text-black/90 dark:text-white/90", href "/profile" ]
                     [ text "Read my profile" ]
                 , text " to know more about me!"
                 ]
             ]
         , footer
             []
-            []
+            [ div
+                [ class "flex py-3" ]
+                [ a
+                    [ href "https://github.com/yoching"
+                    , target "_blank"
+                    , rel "noopener noreferrer me"
+                    , title "Github"
+                    , class "mr-3"
+                    ]
+                    [ div [ class "h-7 w-7" ] [ githubIcon ] ]
+                , a
+                    [ href "https://twitter.com/yoshikuni_kato"
+                    , target "_blank"
+                    , rel "noopener noreferrer me"
+                    , title "Twitter"
+                    , class "mr-3"
+                    ]
+                    [ div [ class "h-7 w-7" ] [ twitterIcon ] ]
+                , a
+                    [ href "https://linkedin.com/in/yoshikunikato"
+                    , target "_blank"
+                    , rel "noopener noreferrer me"
+                    , title "Linkedin"
+                    ]
+                    [ div [ class "h-7 w-7" ] [ linkedInIcon ] ]
+                ]
+            ]
         ]
