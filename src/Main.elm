@@ -1053,31 +1053,7 @@ post2View =
     article
         [ class "post-single"
         ]
-        [ header
-            [ class "post-header"
-            ]
-            [ div
-                [ class "breadcrumbs"
-                ]
-                [ a
-                    [ href "https://yoshikuni-web.com"
-                    ]
-                    [ text "Home" ]
-                , text "»"
-                , a
-                    [ href "https://yoshikuni-web.com/blog/"
-                    ]
-                    [ text "Blog" ]
-                ]
-            , h1
-                [ class "post-title"
-                ]
-                [ text "Haskell and Swift" ]
-            , div
-                [ class "post-meta"
-                ]
-                [ text "July 23, 2021 · 4 min" ]
-            ]
+        [ postDetailHeader "Haskell and Swift" "July 23, 2021 · 4 min"
         , div
             [ class "post-content"
             ]
@@ -1121,8 +1097,7 @@ post2View =
                 ]
             , p []
                 [ text "I’m gonna share some similarities I found in Haskell and Swift, and the limitations of Swift compared to Haskell." ]
-            , hr []
-                []
+            , postDetailHr
             , h2
                 [ id "corresponding-concepts"
                 ]
@@ -1291,8 +1266,7 @@ post2View =
                     [ text "Types" ]
                 , text ", and Haskell seems to be very aware of handling types."
                 ]
-            , hr []
-                []
+            , postDetailHr
             , h2
                 [ id "in-haskell-but-not-in-swift"
                 ]
@@ -1675,8 +1649,7 @@ post2View =
                 ]
             , p []
                 [ text "The Haskell world is vast. There are numerous interesting concepts and ways of thinking about programming, that don’t exist in other languages." ]
-            , hr []
-                []
+            , postDetailHr
             , h2
                 [ id "references"
                 ]
@@ -1802,8 +1775,7 @@ post2View =
                     , text "Looking forward to these two this fall."
                     ]
                 ]
-            , hr []
-                []
+            , postDetailHr
             , p []
                 [ text "Thank you for reading! Please reach out to"
                 , a
@@ -1848,3 +1820,33 @@ post2View =
                 ]
             ]
         ]
+
+
+postDetailHeader : String -> String -> Html msg
+postDetailHeader title date =
+    header
+        [ class "my-6" ]
+        [ div
+            [ class "leading-6" ]
+            [ a
+                [ href "/" ]
+                [ text "Home" ]
+            , text "»"
+            , a
+                [ href "/blog" ]
+                [ text "Blog" ]
+            ]
+        , h1
+            [ class "text-4xl font-bold" ]
+            [ text title ]
+        , div
+            [ class "text-sm" ]
+            [ text date ]
+        ]
+
+
+postDetailHr : Html msg
+postDetailHr =
+    hr
+        [ class "my-7 h-0.5 bg-white" ]
+        []
