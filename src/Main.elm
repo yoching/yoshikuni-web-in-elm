@@ -74,12 +74,7 @@ main =
 
 initialPosts : List Post
 initialPosts =
-    [ { title = "Report - 2021 Q4"
-      , description = "This is a report of my activities in 2021 Q4. Project changes, learning, and so on!\nClient work New client projects started in this period.\nCoral Thank you, Coral team.I’m looking forward to working with you again.An app project with a Japanese startup Building a new messaging app for teenagers.Using SwiftUI, Firebase, GraphQL, The Composable Architecture(TCA), and so on.An art app project with an artist based in New York Building a photo- based app with some interesting ideas...."
-      , footerText = "December 24, 2021 · 2 min"
-      , id = "report-2022q2"
-      }
-    , { title = "Haskell and Swift"
+    [ { title = "Haskell and Swift"
       , description = "Hello, world. Let me share some of my findings of Haskell and Swift.\nI got interested in functional programming, especially in Haskell, when I realized that most of my favorite Swift features come from functional programming. My favorite features include enum with associated values, Result type, higher-order functions (i.e. passing functions themselves), KeyPath type, and so on."
       , footerText = "July 23, 2021 · 4 min"
       , id = "swift-haskell"
