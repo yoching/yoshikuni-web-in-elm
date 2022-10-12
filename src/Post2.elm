@@ -38,173 +38,235 @@ post2View =
             , postContentP []
                 [ text "After started learning Haskell, I found there are more common features between Swift and Haskell than I expected. Some data types are essentially the same, some syntax is similar, and some concepts are common. In fact, "
                 , a
-                    [ href "https://en.wikipedia.org/wiki/Chris_Lattner"
-                    ]
+                    [ href "https://en.wikipedia.org/wiki/Chris_Lattner" ]
                     [ text "Chris Lattner" ]
                 , text ", who is the main author of Swift, confirms that Generics in Swift is inspired by Haskell according to "
                 , a
-                    [ href "https://www.swiftbysundell.com/podcast/100/"
-                    ]
+                    [ href "https://www.swiftbysundell.com/podcast/100/" ]
                     [ text "an interview" ]
                 , text "."
                 ]
             , postContentP []
                 [ text "I’m gonna share some similarities I found in Haskell and Swift, and the limitations of Swift compared to Haskell." ]
             , postDetailHr
-            , postDetailH2 [] [ text "Corresponding concepts" ]
-            , postContentP []
+            , postDetailH2
+                []
+                [ text "Corresponding concepts" ]
+            , postContentP
+                []
                 [ text "These are some syntax, data types, and concepts both languages have." ]
-            , table [ class "mb-8" ]
-                [ thead []
-                    [ tr [ class "border-b border-gray-700" ]
-                        [ th [ class "text-sm py-3 px-2 text-left" ]
+            , table
+                [ class "mb-8" ]
+                [ thead
+                    []
+                    [ tr
+                        [ class "border-b border-gray-700" ]
+                        [ th
+                            [ class "text-sm py-3 px-2 text-left" ]
                             [ text "Swift" ]
-                        , th [ class "text-sm text-left py-3 px-2" ]
+                        , th
+                            [ class "text-sm text-left py-3 px-2" ]
                             [ text "Haskell" ]
                         ]
                     ]
-                , tbody []
-                    [ tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
+                , tbody
+                    []
+                    [ tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Generics:"
-                            , br []
+                            , br
+                                []
                                 []
                             , text "e.g."
-                            , codeInline []
+                            , codeInline
+                                []
                                 [ text "struct GenericType<A, B>" ]
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
+                        , td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Type Constructor:"
-                            , br []
+                            , br
+                                []
                                 []
                             , text "e.g."
-                            , codeInline []
-                                [ text "data SomeType a b" ]
-                            , br []
+                            , codeInline
                                 []
-                            , codeInline []
+                                [ text "data SomeType a b" ]
+                            , br
+                                []
+                                []
+                            , codeInline
+                                []
                                 [ text "a" ]
                             , text "and"
-                            , codeInline []
+                            , codeInline
+                                []
                                 [ text "b" ]
                             , text "are called type parameters"
                             ]
                         ]
-                    , tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
+                    , tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Protocol:"
-                            , codeInline []
+                            , codeInline
+                                []
                                 [ text "protocol" ]
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
+                        , td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Type Class:"
-                            , codeInline []
+                            , codeInline
+                                []
                                 [ text "class" ]
                             ]
                         ]
-                    , tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
+                    , tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Protocol conformance:"
-                            , br []
+                            , br
                                 []
-                            , codeInline []
+                                []
+                            , codeInline
+                                []
                                 [ text "extension SomeType: SomeProtocol {" ]
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
+                        , td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Instance declaration:"
-                            , br []
+                            , br
                                 []
-                            , codeInline []
+                                []
+                            , codeInline
+                                []
                                 [ text "instance SomeClass SomeType where" ]
                             ]
                         ]
-                    , tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
-                            [ codeInline []
+                    , tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
+                            [ codeInline
+                                []
                                 [ text "enum" ]
                             , text "with associated value"
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
+                        , td
+                            [ class "text-lg py-3 px-2" ]
                             [ a
-                                [ href "https://en.wikipedia.org/wiki/Algebraic_data_type"
-                                ]
+                                [ href "https://en.wikipedia.org/wiki/Algebraic_data_type" ]
                                 [ text "Algebraic Data Type" ]
                             , text ":"
-                            , codeInline []
+                            , codeInline
+                                []
                                 [ text "data" ]
                             ]
                         ]
-                    , tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
-                            [ codeInline []
+                    , tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
+                            [ codeInline
+                                []
                                 [ text "enum Optional<Wrapped>" ]
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
-                            [ codeInline []
+                        , td
+                            [ class "text-lg py-3 px-2" ]
+                            [ codeInline
+                                []
                                 [ text "data Maybe a" ]
                             ]
                         ]
-                    , tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
-                            [ codeInline []
+                    , tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
+                            [ codeInline
+                                []
                                 [ text "enum Result<Success, Failure>" ]
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
-                            [ codeInline []
+                        , td
+                            [ class "text-lg py-3 px-2" ]
+                            [ codeInline
+                                []
                                 [ text "data Either a b" ]
                             ]
                         ]
-                    , tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
+                    , tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Closure:"
-                            , codeInline []
+                            , codeInline
+                                []
                                 [ text "{ A -> B in ... }" ]
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
+                        , td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Lambda:"
-                            , codeInline []
+                            , codeInline
+                                []
                                 [ text "\\a -> ..." ]
                             ]
                         ]
-                    , tr [ class "border-b border-gray-700" ]
-                        [ td [ class "text-lg py-3 px-2" ]
+                    , tr
+                        [ class "border-b border-gray-700" ]
+                        [ td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Closure type declaration:"
-                            , br []
+                            , br
                                 []
-                            , codeInline []
+                                []
+                            , codeInline
+                                []
                                 [ text "var foo: (A -> B -> C)" ]
                             ]
-                        , td [ class "text-lg py-3 px-2" ]
+                        , td
+                            [ class "text-lg py-3 px-2" ]
                             [ text "Function signature:"
-                            , br []
+                            , br
                                 []
-                            , codeInline []
+                                []
+                            , codeInline
+                                []
                                 [ text "foo :: A -> B -> C" ]
                             ]
                         ]
                     ]
                 ]
-            , postContentP []
+            , postContentP
+                []
                 [ text "There are more common features such as:" ]
-            , ul [ class "list-disc list-inside mb-5 pl-5" ]
-                [ li []
+            , ul
+                [ class "list-disc list-inside mb-5 pl-5" ]
+                [ li
+                    []
                     [ text "Type inference" ]
-                , li []
+                , li
+                    []
                     [ text "Pattern matching" ]
-                , li []
-                    [ codeInline []
+                , li
+                    []
+                    [ codeInline
+                        []
                         [ text "KeyPath" ]
                     , text " is “Lens” (e.g. "
                     , a
-                        [ href "https://www.47deg.com/blog/keypaths-optics/"
-                        ]
+                        [ href "https://www.47deg.com/blog/keypaths-optics/" ]
                         [ text "Swift KeyPaths under a different optic" ]
                     , text ")"
                     ]
                 ]
-            , postContentP []
+            , postContentP
+                []
                 [ text "By the way, “Type constructor”, “Type parameter”, “Type class”, … It seems Haskell terminology is built around "
-                , strong []
+                , strong
+                    []
                     [ text "Types" ]
                 , text ", and Haskell seems to be very aware of handling types."
                 ]
@@ -220,7 +282,8 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , postContentP []
+            , postContentP
+                []
                 [ text "Even though there are a lot of similarities, there are also some patterns that cannot be written simply in Swift." ]
             , postContentH3
                 [ id "higher-kinded-type" ]
@@ -233,12 +296,15 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , postContentP []
+            , postContentP
+                []
                 [ text "For example,"
-                , codeInline []
+                , codeInline
+                    []
                     [ text "Functor" ]
                 , text "class, which is like a protocol that has"
-                , codeInline []
+                , codeInline
+                    []
                     [ text "fmap" ]
                 , text "function in Swift terms, cannot be directly translated into Swift."
                 ]
@@ -256,78 +322,68 @@ post2View =
                         [ class "language-Haskell", attribute "data-lang" "Haskell" ]
                         [ span
                             [ style "display" "flex" ]
-                            [ span []
+                            [ span
+                                []
                                 [ span
                                     [ style "color" "#75715e" ]
                                     [ text "-- Haskell" ]
                                 ]
                             ]
                         , span
-                            [ style "display" "flex"
-                            ]
-                            [ span []
+                            [ style "display" "flex" ]
+                            [ span
+                                []
                                 [ span
-                                    [ style "color" "#66d9ef"
-                                    ]
+                                    [ style "color" "#66d9ef" ]
                                     [ text "class " ]
                                 , span
-                                    [ style "color" "#66d9ef"
-                                    ]
+                                    [ style "color" "#66d9ef" ]
                                     [ text "Functor " ]
                                 , text "f "
                                 , span
-                                    [ style "color" "#66d9ef"
-                                    ]
+                                    [ style "color" "#66d9ef" ]
                                     [ text "where" ]
                                 ]
                             ]
                         , span
-                            [ style "display" "flex"
-                            ]
+                            [ style "display" "flex" ]
                             [ span []
                                 [ text "    fmap"
                                 , span
-                                    [ style "color" "#f92672"
-                                    ]
+                                    [ style "color" "#f92672" ]
                                     [ text " :: " ]
                                 , text "(a"
                                 , span
-                                    [ style "color" "#f92672"
-                                    ]
+                                    [ style "color" "#f92672" ]
                                     [ text " -> " ]
                                 , text "b)"
                                 , span
-                                    [ style "color" "#f92672"
-                                    ]
+                                    [ style "color" "#f92672" ]
                                     [ text " -> " ]
                                 , text "f a"
                                 , span
-                                    [ style "color" "#f92672"
-                                    ]
+                                    [ style "color" "#f92672" ]
                                     [ text " -> " ]
                                 , text "f b"
                                 ]
                             ]
                         , span
-                            [ style "display" "flex"
-                            ]
-                            [ span []
+                            [ style "display" "flex" ]
+                            [ span
+                                []
                                 [ span
-                                    [ style "color" "#f92672"
-                                    ]
+                                    [ style "color" "#f92672" ]
                                     [ text "    ..." ]
                                 ]
                             ]
                         ]
                     ]
                 , button
-                    [ class "copy-code"
-                    ]
+                    [ class "copy-code" ]
                     [ text "copy" ]
                 ]
             , div
-                [ class "highlight"
-                ]
+                [ class "highlight" ]
                 [ pre
                     [ tabindex 0
                     , style "color" "#f8f8f2"
@@ -341,211 +397,180 @@ post2View =
                         , attribute "data-lang" "Swift"
                         ]
                         [ span
-                            [ style "display" "flex"
-                            ]
-                            [ span []
+                            [ style "display" "flex" ]
+                            [ span
+                                []
                                 [ span
-                                    [ style "color" "#75715e"
-                                    ]
+                                    [ style "color" "#75715e" ]
                                     [ span
-                                        [ class "hljs-comment"
-                                        ]
+                                        [ class "hljs-comment" ]
                                         [ text "// Psuedo-Swift" ]
                                     ]
                                 ]
                             ]
                         , span
-                            [ style "display" "flex"
-                            ]
-                            [ span []
+                            [ style "display" "flex" ]
+                            [ span
+                                []
                                 [ span
-                                    [ style "color" "#66d9ef"
-                                    ]
+                                    [ style "color" "#66d9ef" ]
                                     [ span
-                                        [ class "hljs-class"
-                                        ]
+                                        [ class "hljs-class" ]
                                         [ span
-                                            [ class "hljs-keyword"
-                                            ]
+                                            [ class "hljs-keyword" ]
                                             [ text "protocol " ]
                                         ]
                                     ]
                                 , span
-                                    [ class "hljs-class"
-                                    ]
+                                    [ class "hljs-class" ]
                                     []
                                 , span
-                                    [ style "color" "#a6e22e"
-                                    ]
+                                    [ style "color" "#a6e22e" ]
                                     [ span
-                                        [ class "hljs-class"
-                                        ]
+                                        [ class "hljs-class" ]
                                         [ span
-                                            [ class "hljs-title"
-                                            ]
+                                            [ class "hljs-title" ]
                                             [ text "Functor " ]
                                         ]
                                     ]
                                 , span
-                                    [ class "hljs-class"
-                                    ]
+                                    [ class "hljs-class" ]
                                     [ span
-                                        [ class "hljs-title"
-                                        ]
+                                        [ class "hljs-title" ]
                                         [ text "F " ]
                                     ]
                                 , text "{ "
                                 , span
-                                    [ style "color" "#75715e"
-                                    ]
+                                    [ style "color" "#75715e" ]
                                     [ span
-                                        [ class "hljs-comment"
-                                        ]
+                                        [ class "hljs-comment" ]
                                         [ text "// `F` needs to be a type constructor. General type constructor cannot be written in Swift." ]
                                     ]
                                 ]
                             ]
                         , span
-                            [ style "display" "flex"
-                            ]
-                            [ span []
+                            [ style "display" "flex" ]
+                            [ span
+                                []
                                 [ span
-                                    [ style "color" "#66d9ef"
-                                    ]
+                                    [ style "color" "#66d9ef" ]
                                     [ span
-                                        [ class "hljs-function"
-                                        ]
+                                        [ class "hljs-function" ]
                                         [ span
-                                            [ class "hljs-keyword"
-                                            ]
+                                            [ class "hljs-keyword" ]
                                             [ text "    func " ]
                                         ]
                                     ]
                                 , span
-                                    [ class "hljs-function"
-                                    ]
+                                    [ class "hljs-function" ]
                                     []
                                 , span
-                                    [ style "color" "#a6e22e"
-                                    ]
+                                    [ style "color" "#a6e22e" ]
                                     [ span
-                                        [ class "hljs-function"
-                                        ]
+                                        [ class "hljs-function" ]
                                         [ span
-                                            [ class "hljs-title"
-                                            ]
+                                            [ class "hljs-title" ]
                                             [ text "fmap" ]
                                         ]
                                     ]
                                 , span
-                                    [ class "hljs-function"
-                                    ]
+                                    [ class "hljs-function" ]
                                     [ text "<A, B>"
                                     , span
-                                        [ class "hljs-params"
-                                        ]
+                                        [ class "hljs-params" ]
                                         [ text "(" ]
                                     ]
                                 , span
-                                    [ style "color" "#66d9ef"
-                                    ]
+                                    [ style "color" "#66d9ef" ]
                                     [ span
-                                        [ class "hljs-function"
-                                        ]
+                                        [ class "hljs-function" ]
                                         [ span
-                                            [ class "hljs-params"
-                                            ]
+                                            [ class "hljs-params" ]
                                             [ span
-                                                [ class "hljs-number"
-                                                ]
+                                                [ class "hljs-number" ]
                                                 [ text "_ " ]
                                             ]
                                         ]
                                     ]
                                 , span
-                                    [ class "hljs-function"
-                                    ]
+                                    [ class "hljs-function" ]
                                     [ span
-                                        [ class "hljs-params"
-                                        ]
+                                        [ class "hljs-params" ]
                                         [ text "f: "
                                         , span
-                                            [ class "hljs-params"
-                                            ]
+                                            [ class "hljs-params" ]
                                             [ text "(A) " ]
                                         ]
                                     ]
                                 , text "-> "
                                 , span
-                                    [ class "hljs-type"
-                                    ]
+                                    [ class "hljs-type" ]
                                     [ text "B" ]
                                 , text ") -> "
                                 , span
-                                    [ class "hljs-type"
-                                    ]
+                                    [ class "hljs-type" ]
                                     [ text "F" ]
                                 , text "<"
                                 , span
-                                    [ class "hljs-type"
-                                    ]
+                                    [ class "hljs-type" ]
                                     [ text "A" ]
                                 , text "> -> "
                                 , span
-                                    [ class "hljs-type"
-                                    ]
+                                    [ class "hljs-type" ]
                                     [ text "F" ]
                                 , text "<"
                                 , span
-                                    [ class "hljs-type"
-                                    ]
+                                    [ class "hljs-type" ]
                                     [ text "B" ]
                                 , text ">"
                                 ]
                             ]
                         , span
-                            [ style "display" "flex"
-                            ]
-                            [ span []
+                            [ style "display" "flex" ]
+                            [ span
+                                []
                                 [ text "    ..." ]
                             ]
                         , span
-                            [ style "display" "flex"
-                            ]
-                            [ span []
+                            [ style "display" "flex" ]
+                            [ span
+                                []
                                 [ text "}" ]
                             ]
                         ]
                     ]
                 , button
-                    [ class "copy-code"
-                    ]
+                    [ class "copy-code" ]
                     [ text "copy" ]
                 ]
-            , postContentP []
-                [ codeInline []
+            , postContentP
+                []
+                [ codeInline
+                    []
                     [ text "F" ]
                 , text "could be"
-                , codeInline []
+                , codeInline
+                    []
                     [ text "Optional" ]
                 , text "(not"
-                , codeInline []
+                , codeInline
+                    []
                     [ text "Optional<A>" ]
                 , text "), or"
-                , codeInline []
+                , codeInline
+                    []
                     [ text "Result<Int, /* some general type parameter */>" ]
                 , text ". However, Swift hasn’t supported this kind of syntax."
-                , br []
+                , br
+                    []
                     []
                 , text "Higher-Kinded Type (HKT) support is necessary for this. "
                 , a
-                    [ href "https://bow-swift.io/"
-                    ]
+                    [ href "https://bow-swift.io/" ]
                     [ text "Bow-Swift" ]
                 , text " includes a great document about this topic "
                 , a
-                    [ href "https://bow-swift.io/docs/fp-concepts/higher-kinded-types/"
-                    ]
+                    [ href "https://bow-swift.io/docs/fp-concepts/higher-kinded-types/" ]
                     [ text "here" ]
                 , text "."
                 ]
@@ -560,18 +585,20 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , postContentP []
+            , postContentP
+                []
                 [ text "In Haskell, since all functions are pure, side effects can be written only in a type called"
-                , codeInline []
+                , codeInline
+                    []
                     [ text "IO" ]
                 , text ". On the other hand, in Swift, side effects can be written anywhere."
-                , br []
+                , br
+                    []
                     []
                 , text "As limiting the place to write side effects leads to more robust and testable codes, I sometimes miss this feature when I go back to writing Swift."
                 ]
             , postContentH3
-                [ id "and-more-and-more"
-                ]
+                [ id "and-more-and-more" ]
                 [ text "And, more and more!"
                 , a
                     [ hidden True
@@ -581,7 +608,8 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , postContentP []
+            , postContentP
+                []
                 [ text "The Haskell world is vast. There are numerous interesting concepts and ways of thinking about programming, that don’t exist in other languages." ]
             , postDetailHr
             , postDetailH2
@@ -596,8 +624,7 @@ post2View =
                     [ text "#" ]
                 ]
             , postContentH3
-                [ id "for-swift-programmers"
-                ]
+                [ id "for-swift-programmers" ]
                 [ text "For Swift programmers"
                 , a
                     [ hidden True
@@ -607,27 +634,28 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , postContentP []
+            , postContentP
+                []
                 [ text "If you’re a Swift programmer, these materials are excellent to get into functional programming. I learned a lot from these. Highly recommended." ]
-            , ul [ class "list-disc mb-5 block pl-5" ]
-                [ li []
+            , ul
+                [ class "list-disc mb-5 block pl-5" ]
+                [ li
+                    []
                     [ a
-                        [ href "https://www.pointfree.co/"
-                        ]
+                        [ href "https://www.pointfree.co/" ]
                         [ text "Point-Free" ]
                     , text ": A video series exploring functional programming and Swift."
                     ]
-                , li []
+                , li
+                    []
                     [ a
-                        [ href "https://bow-swift.io/"
-                        ]
+                        [ href "https://bow-swift.io/" ]
                         [ text "Bow-Swift" ]
                     , text ": A library for Typed Functional Programming in Swift"
                     ]
                 ]
             , postContentH3
-                [ id "start-learning-haskell"
-                ]
+                [ id "start-learning-haskell" ]
                 [ text "Start learning Haskell"
                 , a
                     [ hidden True
@@ -637,29 +665,31 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , ul [ class "list-disc mb-5 pl-5" ]
-                [ li []
+            , ul
+                [ class "list-disc mb-5 pl-5" ]
+                [ li
+                    []
                     [ a
-                        [ href "http://learnyouahaskell.com/"
-                        ]
+                        [ href "http://learnyouahaskell.com/" ]
                         [ text "Learn You a Haskell for Great Good!" ]
-                    , br []
+                    , br
+                        []
                         []
                     , text "A famous book. Good for beginners."
                     ]
-                , li []
+                , li
+                    []
                     [ a
-                        [ href "https://haskellbook.com/"
-                        ]
+                        [ href "https://haskellbook.com/" ]
                         [ text "Haskell Programming from first principles" ]
-                    , br []
+                    , br
+                        []
                         []
                     , text "I’m reading this too. This covers more topics than the one above."
                     ]
                 ]
             , postContentH3
-                [ id "haskell-conferencesevents"
-                ]
+                [ id "haskell-conferencesevents" ]
                 [ text "Haskell conferences/events"
                 , a
                     [ hidden True
@@ -669,83 +699,92 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , ul [ class "list-disc mb-5 pl-5" ]
-                [ li []
+            , ul
+                [ class "list-disc mb-5 pl-5" ]
+                [ li
+                    []
                     [ a
-                        [ href "https://zfoh.ch/zurihac2021/"
-                        ]
+                        [ href "https://zfoh.ch/zurihac2021/" ]
                         [ text "ZuriHac" ]
                     , text ": June 18-20, 2021"
-                    , br []
+                    , br
+                        []
                         []
                     , text "I attended this year. Great talks and a very welcoming atmosphere!"
                     ]
-                , li []
+                , li
+                    []
                     [ a
-                        [ href "https://utrechtsummerschool.nl/courses/science//applied-functional-programming-in-haskell"
-                        ]
+                        [ href "https://utrechtsummerschool.nl/courses/science//applied-functional-programming-in-haskell" ]
                         [ text "Applied Functional Programming in Haskell" ]
                     , text "at Summer School Utrecht, July 05-09, 2021"
-                    , br []
+                    , br
+                        []
                         []
                     , text "I also attended this course this summer. There were a lot of intermediate/advanced topics. It’s also nice to know how Haskell is discussed in academics."
                     ]
-                , li []
+                , li
+                    []
                     [ a
-                        [ href "https://haskell.love/"
-                        ]
+                        [ href "https://haskell.love/" ]
                         [ text "Haskell Love Conference" ]
                     , text ": Sep 10, 2021, online"
                     ]
-                , li []
+                , li
+                    []
                     [ a
-                        [ href "https://skillsmatter.com/conferences/13256-haskell-exchange-2021"
-                        ]
+                        [ href "https://skillsmatter.com/conferences/13256-haskell-exchange-2021" ]
                         [ text "Haskell eXchange" ]
                     , text ": Nov 16-17, 2021, online"
-                    , br []
+                    , br
+                        []
                         []
                     , text "Looking forward to these two this fall."
                     ]
                 ]
             , postDetailHr
-            , postContentP []
+            , postContentP
+                []
                 [ text "Thank you for reading! Please reach out to "
                 , a
-                    [ href "https://twitter.com/yoshikuni_kato"
-                    ]
+                    [ href "https://twitter.com/yoshikuni_kato" ]
                     [ text "@yoshikuni_kato" ]
                 , text " if you have any questions or comments. Enjoy functional programming!"
                 ]
             ]
-        , footer
-            [ class "post-footer mt-14 block" ]
-            [ nav
-                [ class "paginav flex rounded-lg bg-gray-700 leading-8" ]
-                [ a
-                    [ class "prev w-3/6 px-3 text-left"
-                    , href "https://yoshikuni-web.com/blog/2021/presentations/"
-                    ]
-                    [ span
-                        [ class "title text-sm tracking-widest uppercase opacity-50" ]
-                        [ text "« Prev Page" ]
-                    , br []
-                        []
-                    , span []
-                        [ text "My past presentations" ]
-                    ]
-                , a
-                    [ class "next w-3/6 px-3 text-right"
-                    , href "https://yoshikuni-web.com/blog/2021/report-2021q2/"
-                    ]
-                    [ span
-                        [ class "title text-sm tracking-widest uppercase opacity-50" ]
-                        [ text "Next Page »" ]
-                    , br []
-                        []
-                    , span []
-                        [ text "Report - April to June, 2021" ]
-                    ]
-                ]
-            ]
+
+        -- , footer
+        --     [ class "post-footer mt-14 block" ]
+        --     [ nav
+        --         [ class "paginav flex rounded-lg bg-gray-700 leading-8" ]
+        --         [ a
+        --             [ class "prev w-3/6 px-3 text-left"
+        --             , href "https://yoshikuni-web.com/blog/2021/presentations/"
+        --             ]
+        --             [ span
+        --                 [ class "title text-sm tracking-widest uppercase opacity-50" ]
+        --                 [ text "« Prev Page" ]
+        --             , br
+        --                 []
+        --                 []
+        --             , span
+        --                 []
+        --                 [ text "My past presentations" ]
+        --             ]
+        --         , a
+        --             [ class "next w-3/6 px-3 text-right"
+        --             , href "https://yoshikuni-web.com/blog/2021/report-2021q2/"
+        --             ]
+        --             [ span
+        --                 [ class "title text-sm tracking-widest uppercase opacity-50" ]
+        --                 [ text "Next Page »" ]
+        --             , br
+        --                 []
+        --                 []
+        --             , span
+        --                 []
+        --                 [ text "Report - April to June, 2021" ]
+        --             ]
+        --         ]
+        --     ]
         ]
