@@ -4,6 +4,7 @@ module Main exposing (..)
 
 import Browser exposing (..)
 import Browser.Navigation as Nav
+import Debug exposing (todo)
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, hidden, href, id, rel, src, style, tabindex, target, title)
 import Html.Events exposing (onClick)
@@ -1051,208 +1052,193 @@ post1View =
 post2View : Html msg
 post2View =
     article
-        [ class "post-single"
-        ]
+        [ class "post-single" ]
         [ postDetailHeader "Haskell and Swift" "July 23, 2021 · 4 min"
         , div
-            [ class "post-content"
-            ]
-            [ p []
-                [ text "Hello, world. Let me share some of my findings of"
+            [ class "post-content" ]
+            [ postContentP []
+                [ text "Hello, world. Let me share some of my findings of "
                 , a
-                    [ href "https://www.haskell.org/"
-                    ]
+                    [ href "https://www.haskell.org/" ]
                     [ text "Haskell" ]
-                , text "and"
+                , text " and "
                 , a
-                    [ href "https://swift.org/"
-                    ]
+                    [ href "https://swift.org/" ]
                     [ text "Swift" ]
                 , text "."
                 ]
-            , p []
+            , postContentP []
                 [ text "I got interested in functional programming, especially in Haskell, when I realized that most of my favorite Swift features come from functional programming. My favorite features include"
-                , code []
+                , codeInline []
                     [ text "enum" ]
                 , text "with associated values,"
-                , code []
+                , codeInline []
                     [ text "Result" ]
                 , text "type, higher-order functions (i.e. passing functions themselves),"
-                , code []
+                , codeInline []
                     [ text "KeyPath" ]
                 , text "type, and so on."
                 ]
-            , p []
-                [ text "After started learning Haskell, I found there are more common features between Swift and Haskell than I expected. Some data types are essentially the same, some syntax is similar, and some concepts are common. In fact,"
+            , postContentP []
+                [ text "After started learning Haskell, I found there are more common features between Swift and Haskell than I expected. Some data types are essentially the same, some syntax is similar, and some concepts are common. In fact, "
                 , a
                     [ href "https://en.wikipedia.org/wiki/Chris_Lattner"
                     ]
                     [ text "Chris Lattner" ]
-                , text ", who is the main author of Swift, confirms that Generics in Swift is inspired by Haskell according to"
+                , text ", who is the main author of Swift, confirms that Generics in Swift is inspired by Haskell according to "
                 , a
                     [ href "https://www.swiftbysundell.com/podcast/100/"
                     ]
                     [ text "an interview" ]
                 , text "."
                 ]
-            , p []
+            , postContentP []
                 [ text "I’m gonna share some similarities I found in Haskell and Swift, and the limitations of Swift compared to Haskell." ]
             , postDetailHr
-            , h2
-                [ id "corresponding-concepts"
-                ]
-                [ text "Corresponding concepts"
-                , a
-                    [ hidden True
-                    , class "anchor"
-                    , attribute "aria-hidden" "true"
-                    , href "#corresponding-concepts"
-                    ]
-                    [ text "#" ]
-                ]
-            , p []
+            , postDetailH2 [] [ text "Corresponding concepts" ]
+            , postContentP []
                 [ text "These are some syntax, data types, and concepts both languages have." ]
-            , table []
+            , table [ class "mb-8" ]
                 [ thead []
-                    [ tr []
-                        [ th []
+                    [ tr [ class "border-b border-gray-700" ]
+                        [ th [ class "text-sm py-3 px-2 text-left" ]
                             [ text "Swift" ]
-                        , th []
+                        , th [ class "text-sm text-left py-3 px-2" ]
                             [ text "Haskell" ]
                         ]
                     ]
                 , tbody []
-                    [ tr []
-                        [ td []
+                    [ tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
                             [ text "Generics:"
                             , br []
                                 []
                             , text "e.g."
-                            , code []
+                            , codeInline []
                                 [ text "struct GenericType<A, B>" ]
                             ]
-                        , td []
+                        , td [ class "text-lg py-3 px-2" ]
                             [ text "Type Constructor:"
                             , br []
                                 []
                             , text "e.g."
-                            , code []
+                            , codeInline []
                                 [ text "data SomeType a b" ]
                             , br []
                                 []
-                            , code []
+                            , codeInline []
                                 [ text "a" ]
                             , text "and"
-                            , code []
+                            , codeInline []
                                 [ text "b" ]
                             , text "are called type parameters"
                             ]
                         ]
-                    , tr []
-                        [ td []
+                    , tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
                             [ text "Protocol:"
-                            , code []
+                            , codeInline []
                                 [ text "protocol" ]
                             ]
-                        , td []
+                        , td [ class "text-lg py-3 px-2" ]
                             [ text "Type Class:"
-                            , code []
+                            , codeInline []
                                 [ text "class" ]
                             ]
                         ]
-                    , tr []
-                        [ td []
+                    , tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
                             [ text "Protocol conformance:"
                             , br []
                                 []
-                            , code []
+                            , codeInline []
                                 [ text "extension SomeType: SomeProtocol {" ]
                             ]
-                        , td []
+                        , td [ class "text-lg py-3 px-2" ]
                             [ text "Instance declaration:"
                             , br []
                                 []
-                            , code []
+                            , codeInline []
                                 [ text "instance SomeClass SomeType where" ]
                             ]
                         ]
-                    , tr []
-                        [ td []
-                            [ code []
+                    , tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
+                            [ codeInline []
                                 [ text "enum" ]
                             , text "with associated value"
                             ]
-                        , td []
+                        , td [ class "text-lg py-3 px-2" ]
                             [ a
                                 [ href "https://en.wikipedia.org/wiki/Algebraic_data_type"
                                 ]
                                 [ text "Algebraic Data Type" ]
                             , text ":"
-                            , code []
+                            , codeInline []
                                 [ text "data" ]
                             ]
                         ]
-                    , tr []
-                        [ td []
-                            [ code []
+                    , tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
+                            [ codeInline []
                                 [ text "enum Optional<Wrapped>" ]
                             ]
-                        , td []
-                            [ code []
+                        , td [ class "text-lg py-3 px-2" ]
+                            [ codeInline []
                                 [ text "data Maybe a" ]
                             ]
                         ]
-                    , tr []
-                        [ td []
-                            [ code []
+                    , tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
+                            [ codeInline []
                                 [ text "enum Result<Success, Failure>" ]
                             ]
-                        , td []
-                            [ code []
+                        , td [ class "text-lg py-3 px-2" ]
+                            [ codeInline []
                                 [ text "data Either a b" ]
                             ]
                         ]
-                    , tr []
-                        [ td []
+                    , tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
                             [ text "Closure:"
-                            , code []
+                            , codeInline []
                                 [ text "{ A -> B in ... }" ]
                             ]
-                        , td []
+                        , td [ class "text-lg py-3 px-2" ]
                             [ text "Lambda:"
-                            , code []
-                                [ text "\u{0007} -> ..." ]
+                            , codeInline []
+                                [ text "\\a -> ..." ]
                             ]
                         ]
-                    , tr []
-                        [ td []
+                    , tr [ class "border-b border-gray-700" ]
+                        [ td [ class "text-lg py-3 px-2" ]
                             [ text "Closure type declaration:"
                             , br []
                                 []
-                            , code []
+                            , codeInline []
                                 [ text "var foo: (A -> B -> C)" ]
                             ]
-                        , td []
+                        , td [ class "text-lg py-3 px-2" ]
                             [ text "Function signature:"
                             , br []
                                 []
-                            , code []
+                            , codeInline []
                                 [ text "foo :: A -> B -> C" ]
                             ]
                         ]
                     ]
                 ]
-            , p []
+            , postContentP []
                 [ text "There are more common features such as:" ]
-            , ul []
+            , ul [ class "list-disc list-inside mb-5 pl-5" ]
                 [ li []
                     [ text "Type inference" ]
                 , li []
                     [ text "Pattern matching" ]
                 , li []
-                    [ code []
+                    [ codeInline []
                         [ text "KeyPath" ]
-                    , text "is “Lens” (e.g."
+                    , text " is “Lens” (e.g. "
                     , a
                         [ href "https://www.47deg.com/blog/keypaths-optics/"
                         ]
@@ -1260,16 +1246,15 @@ post2View =
                     , text ")"
                     ]
                 ]
-            , p []
-                [ text "By the way, “Type constructor”, “Type parameter”, “Type class”, … It seems Haskell terminology is built around"
+            , postContentP []
+                [ text "By the way, “Type constructor”, “Type parameter”, “Type class”, … It seems Haskell terminology is built around "
                 , strong []
                     [ text "Types" ]
                 , text ", and Haskell seems to be very aware of handling types."
                 ]
             , postDetailHr
-            , h2
-                [ id "in-haskell-but-not-in-swift"
-                ]
+            , postDetailH2
+                [ id "in-haskell-but-not-in-swift" ]
                 [ text "In Haskell, but not in Swift"
                 , a
                     [ hidden True
@@ -1279,11 +1264,10 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , p []
+            , postContentP []
                 [ text "Even though there are a lot of similarities, there are also some patterns that cannot be written simply in Swift." ]
-            , h3
-                [ id "higher-kinded-type"
-                ]
+            , postContentH3
+                [ id "higher-kinded-type" ]
                 [ text "Higher-Kinded Type"
                 , a
                     [ hidden True
@@ -1293,37 +1277,32 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , p []
+            , postContentP []
                 [ text "For example,"
-                , code []
+                , codeInline []
                     [ text "Functor" ]
                 , text "class, which is like a protocol that has"
-                , code []
+                , codeInline []
                     [ text "fmap" ]
                 , text "function in Swift terms, cannot be directly translated into Swift."
                 ]
             , div
-                [ class "highlight"
-                ]
+                [ class "highlight" ]
                 [ pre
-                    [ tabindex 0
-                    , style "color" "#f8f8f2"
-                    , style "background-color" "#272822"
-                    , style "-moz-tab-size" "4"
-                    , style "-o-tab-size" "4"
-                    , style "tab-size" "4"
-                    ]
-                    [ code
-                        [ class "language-Haskell"
-                        , attribute "data-lang" "Haskell"
-                        ]
+                    -- [ tabindex 0
+                    -- , style "color" "#f8f8f2"
+                    -- , style "background-color" "#272822"
+                    -- , style "-moz-tab-size" "4"
+                    -- , style "-o-tab-size" "4"
+                    -- , style "tab-size" "4"
+                    []
+                    [ codeBlock
+                        [ class "language-Haskell", attribute "data-lang" "Haskell" ]
                         [ span
-                            [ style "display" "flex"
-                            ]
+                            [ style "display" "flex" ]
                             [ span []
                                 [ span
-                                    [ style "color" "#75715e"
-                                    ]
+                                    [ style "color" "#75715e" ]
                                     [ text "-- Haskell" ]
                                 ]
                             ]
@@ -1334,12 +1313,12 @@ post2View =
                                 [ span
                                     [ style "color" "#66d9ef"
                                     ]
-                                    [ text "class" ]
+                                    [ text "class " ]
                                 , span
                                     [ style "color" "#66d9ef"
                                     ]
-                                    [ text "Functor" ]
-                                , text "f"
+                                    [ text "Functor " ]
+                                , text "f "
                                 , span
                                     [ style "color" "#66d9ef"
                                     ]
@@ -1350,26 +1329,26 @@ post2View =
                             [ style "display" "flex"
                             ]
                             [ span []
-                                [ text "fmap"
+                                [ text "    fmap"
                                 , span
                                     [ style "color" "#f92672"
                                     ]
-                                    [ text "::" ]
+                                    [ text " :: " ]
                                 , text "(a"
                                 , span
                                     [ style "color" "#f92672"
                                     ]
-                                    [ text "->" ]
+                                    [ text " -> " ]
                                 , text "b)"
                                 , span
                                     [ style "color" "#f92672"
                                     ]
-                                    [ text "->" ]
+                                    [ text " -> " ]
                                 , text "f a"
                                 , span
                                     [ style "color" "#f92672"
                                     ]
-                                    [ text "->" ]
+                                    [ text " -> " ]
                                 , text "f b"
                                 ]
                             ]
@@ -1380,7 +1359,7 @@ post2View =
                                 [ span
                                     [ style "color" "#f92672"
                                     ]
-                                    [ text "..." ]
+                                    [ text "    ..." ]
                                 ]
                             ]
                         ]
@@ -1401,7 +1380,7 @@ post2View =
                     , style "-o-tab-size" "4"
                     , style "tab-size" "4"
                     ]
-                    [ code
+                    [ codeBlock
                         [ class "language-Swift hljs"
                         , attribute "data-lang" "Swift"
                         ]
@@ -1432,7 +1411,7 @@ post2View =
                                         [ span
                                             [ class "hljs-keyword"
                                             ]
-                                            [ text "protocol" ]
+                                            [ text "protocol " ]
                                         ]
                                     ]
                                 , span
@@ -1448,7 +1427,7 @@ post2View =
                                         [ span
                                             [ class "hljs-title"
                                             ]
-                                            [ text "Functor" ]
+                                            [ text "Functor " ]
                                         ]
                                     ]
                                 , span
@@ -1457,9 +1436,9 @@ post2View =
                                     [ span
                                         [ class "hljs-title"
                                         ]
-                                        [ text "F" ]
+                                        [ text "F " ]
                                     ]
-                                , text "{"
+                                , text "{ "
                                 , span
                                     [ style "color" "#75715e"
                                     ]
@@ -1483,7 +1462,7 @@ post2View =
                                         [ span
                                             [ class "hljs-keyword"
                                             ]
-                                            [ text "func" ]
+                                            [ text "    func " ]
                                         ]
                                     ]
                                 , span
@@ -1523,7 +1502,7 @@ post2View =
                                             [ span
                                                 [ class "hljs-number"
                                                 ]
-                                                [ text "_" ]
+                                                [ text "_ " ]
                                             ]
                                         ]
                                     ]
@@ -1533,19 +1512,19 @@ post2View =
                                     [ span
                                         [ class "hljs-params"
                                         ]
-                                        [ text "f:"
+                                        [ text "f: "
                                         , span
                                             [ class "hljs-params"
                                             ]
-                                            [ text "(A)" ]
+                                            [ text "(A) " ]
                                         ]
                                     ]
-                                , text "->"
+                                , text "-> "
                                 , span
                                     [ class "hljs-type"
                                     ]
                                     [ text "B" ]
-                                , text ") ->"
+                                , text ") -> "
                                 , span
                                     [ class "hljs-type"
                                     ]
@@ -1555,7 +1534,7 @@ post2View =
                                     [ class "hljs-type"
                                     ]
                                     [ text "A" ]
-                                , text "> ->"
+                                , text "> -> "
                                 , span
                                     [ class "hljs-type"
                                     ]
@@ -1572,7 +1551,7 @@ post2View =
                             [ style "display" "flex"
                             ]
                             [ span []
-                                [ text "..." ]
+                                [ text "    ..." ]
                             ]
                         , span
                             [ style "display" "flex"
@@ -1587,36 +1566,35 @@ post2View =
                     ]
                     [ text "copy" ]
                 ]
-            , p []
-                [ code []
+            , postContentP []
+                [ codeInline []
                     [ text "F" ]
                 , text "could be"
-                , code []
+                , codeInline []
                     [ text "Optional" ]
                 , text "(not"
-                , code []
+                , codeInline []
                     [ text "Optional<A>" ]
                 , text "), or"
-                , code []
+                , codeInline []
                     [ text "Result<Int, /* some general type parameter */>" ]
                 , text ". However, Swift hasn’t supported this kind of syntax."
                 , br []
                     []
-                , text "Higher-Kinded Type (HKT) support is necessary for this."
+                , text "Higher-Kinded Type (HKT) support is necessary for this. "
                 , a
                     [ href "https://bow-swift.io/"
                     ]
                     [ text "Bow-Swift" ]
-                , text "includes a great document about this topic"
+                , text " includes a great document about this topic "
                 , a
                     [ href "https://bow-swift.io/docs/fp-concepts/higher-kinded-types/"
                     ]
                     [ text "here" ]
                 , text "."
                 ]
-            , h3
-                [ id "io-type"
-                ]
+            , postContentH3
+                [ id "io-type" ]
                 [ text "IO type"
                 , a
                     [ hidden True
@@ -1626,16 +1604,16 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , p []
+            , postContentP []
                 [ text "In Haskell, since all functions are pure, side effects can be written only in a type called"
-                , code []
+                , codeInline []
                     [ text "IO" ]
                 , text ". On the other hand, in Swift, side effects can be written anywhere."
                 , br []
                     []
                 , text "As limiting the place to write side effects leads to more robust and testable codes, I sometimes miss this feature when I go back to writing Swift."
                 ]
-            , h3
+            , postContentH3
                 [ id "and-more-and-more"
                 ]
                 [ text "And, more and more!"
@@ -1647,12 +1625,11 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , p []
+            , postContentP []
                 [ text "The Haskell world is vast. There are numerous interesting concepts and ways of thinking about programming, that don’t exist in other languages." ]
             , postDetailHr
-            , h2
-                [ id "references"
-                ]
+            , postDetailH2
+                [ id "references" ]
                 [ text "References"
                 , a
                     [ hidden True
@@ -1662,7 +1639,7 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , h3
+            , postContentH3
                 [ id "for-swift-programmers"
                 ]
                 [ text "For Swift programmers"
@@ -1674,9 +1651,9 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , p []
+            , postContentP []
                 [ text "If you’re a Swift programmer, these materials are excellent to get into functional programming. I learned a lot from these. Highly recommended." ]
-            , ul []
+            , ul [ class "list-disc mb-5 block pl-5" ]
                 [ li []
                     [ a
                         [ href "https://www.pointfree.co/"
@@ -1692,7 +1669,7 @@ post2View =
                     , text ": A library for Typed Functional Programming in Swift"
                     ]
                 ]
-            , h3
+            , postContentH3
                 [ id "start-learning-haskell"
                 ]
                 [ text "Start learning Haskell"
@@ -1704,7 +1681,7 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , ul []
+            , ul [ class "list-disc mb-5 pl-5" ]
                 [ li []
                     [ a
                         [ href "http://learnyouahaskell.com/"
@@ -1724,7 +1701,7 @@ post2View =
                     , text "I’m reading this too. This covers more topics than the one above."
                     ]
                 ]
-            , h3
+            , postContentH3
                 [ id "haskell-conferencesevents"
                 ]
                 [ text "Haskell conferences/events"
@@ -1736,7 +1713,7 @@ post2View =
                     ]
                     [ text "#" ]
                 ]
-            , ul []
+            , ul [ class "list-disc mb-5 pl-5" ]
                 [ li []
                     [ a
                         [ href "https://zfoh.ch/zurihac2021/"
@@ -1776,28 +1753,25 @@ post2View =
                     ]
                 ]
             , postDetailHr
-            , p []
-                [ text "Thank you for reading! Please reach out to"
+            , postContentP []
+                [ text "Thank you for reading! Please reach out to "
                 , a
                     [ href "https://twitter.com/yoshikuni_kato"
                     ]
                     [ text "@yoshikuni_kato" ]
-                , text "if you have any questions or comments. Enjoy functional programming!"
+                , text " if you have any questions or comments. Enjoy functional programming!"
                 ]
             ]
         , footer
-            [ class "post-footer"
-            ]
+            [ class "post-footer mt-14 block" ]
             [ nav
-                [ class "paginav"
-                ]
+                [ class "paginav flex rounded-lg bg-gray-700 leading-8" ]
                 [ a
-                    [ class "prev"
+                    [ class "prev w-3/6 px-3 text-left"
                     , href "https://yoshikuni-web.com/blog/2021/presentations/"
                     ]
                     [ span
-                        [ class "title"
-                        ]
+                        [ class "title text-sm tracking-widest uppercase opacity-50" ]
                         [ text "« Prev Page" ]
                     , br []
                         []
@@ -1805,12 +1779,11 @@ post2View =
                         [ text "My past presentations" ]
                     ]
                 , a
-                    [ class "next"
+                    [ class "next w-3/6 px-3 text-right"
                     , href "https://yoshikuni-web.com/blog/2021/report-2021q2/"
                     ]
                     [ span
-                        [ class "title"
-                        ]
+                        [ class "title text-sm tracking-widest uppercase opacity-50" ]
                         [ text "Next Page »" ]
                     , br []
                         []
@@ -1848,5 +1821,41 @@ postDetailHeader title date =
 postDetailHr : Html msg
 postDetailHr =
     hr
-        [ class "my-7 h-0.5 bg-white" ]
+        [ class "my-7 h-0.5 bg-white opacity-20" ]
         []
+
+
+postDetailH2 : List (Attribute msg) -> List (Html msg) -> Html msg
+postDetailH2 attributes content =
+    h2 (class "text-3xl font-bold mt-8 mb-6" :: attributes)
+        content
+
+
+descriptionA : String -> String -> Html msg
+descriptionA title link =
+    a [ href link, class "underline underline-offset-4" ]
+        [ text title ]
+
+
+postContentP : List (Attribute msg) -> List (Html msg) -> Html msg
+postContentP attributes contents =
+    p (attributes ++ [ class "mb-5" ])
+        contents
+
+
+postContentH3 : List (Attribute msg) -> List (Html msg) -> Html msg
+postContentH3 attributes content =
+    h3 (class "text-2xl font-bold mt-6 mb-4" :: attributes)
+        content
+
+
+codeInline : List (Attribute msg) -> List (Html msg) -> Html msg
+codeInline attr content =
+    code (class "bg-gray-700 mx-1 px-2 py-1 text-base font-mono" :: attr)
+        content
+
+
+codeBlock : List (Attribute msg) -> List (Html msg) -> Html msg
+codeBlock attr content =
+    code (class "block bg-gray-700 p-2 text-base font-mono rounded-lg overflow-x-auto" :: attr)
+        content
