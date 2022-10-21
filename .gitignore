@@ -133,5 +133,4 @@ elm-stuff
 repl-temp-*
 
 # firebase
-.firebaserc
 .firebase
