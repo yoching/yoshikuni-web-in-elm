@@ -135,4 +135,3 @@ repl-temp-*
 # firebase
 .firebaserc
 .firebase
-firebase.json
