@@ -38,10 +38,7 @@ module.exports = {
                         loader: 'elm-asset-webpack-loader'
                     },
                     {
-                        loader: 'elm-webpack-loader',
-                        options: {
-                            debug: false
-                        }
+                        loader: 'elm-webpack-loader'
                     }
                 ]
             },
