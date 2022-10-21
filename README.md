@@ -1,7 +1,7 @@
 # yoshikuni-web-manual
 
 This is a sample web app written in Elm + TailwindCSS.  
-You can also visit the actual site [here](https://yoshikuni-web.firebaseapp.com/).  
+You can also visit the actual site [here](https://yoshikuni-web.web.app/).  
 
 ![](./YoshikuniWebManual.png)
 
@@ -14,6 +14,7 @@ For this purpose, contents and styles are copied from [my actual website](https:
 - [TailwindCSS](https://tailwindcss.com/)
 - [webpack](https://webpack.js.org/)
 - [Firebase Hosting](https://firebase.google.com/docs/hosting)
+- GitHub Actions for deployment
 
 ## Commands
 - Run on local server
@@ -25,7 +26,8 @@ For this purpose, contents and styles are copied from [my actual website](https:
   ```sh
   $ npm run deploy
   ```
+  Also, this site is deployed using GitHub Actions.
 
 ## Links
-- You can also visit the actual site [here](https://yoshikuni-web.firebaseapp.com/).  
+- You can also visit the actual site [here](https://yoshikuni-web.web.app/).  
 - [My actual website](https://yoshikuni-web.com/) using Hugo
