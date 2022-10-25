@@ -1,26 +1,20 @@
 module Main exposing (..)
 
--- import Hello.World exposing (hello)
-
 import Browser exposing (..)
 import Browser.Navigation as Nav
 import Entities.Post exposing (Post)
 import Html exposing (..)
-import Html.Attributes exposing (class, href, rel, target, title)
+import Html.Attributes exposing (class, href, title)
 import Html.Events exposing (onClick)
+import Pages.Home.Home exposing (..)
 import Pages.PostList.PostList exposing (..)
-import Pages.PostPage.Post1 exposing (post1View)
-import Pages.PostPage.Post2 exposing (post2View)
+import Pages.PostPage.PostDetail exposing (postDetailView)
 import Pages.Profile.Profile exposing (profileJapaneseView, profileView)
 import Route exposing (..)
 import Time exposing (..)
 import UIElements.SvgImages exposing (..)
 import Url
 import Url.Parser
-
-
-
--- MODEL
 
 
 type alias Model =
@@ -47,12 +41,14 @@ modeClassName mode =
             "light"
 
 
-
--- MAIN
-
-
 type alias Flags =
     {}
+
+
+type Msg
+    = UrlChanged Url.Url
+    | LinkClicked UrlRequest
+    | ModeClicked
 
 
 main : Program Flags Model Msg
@@ -85,17 +81,6 @@ init _ url key =
 
         Nothing ->
             ( Model initialPosts Dark key url { page = Home, language = Default }, Cmd.none )
-
-
-
--- PORTS
--- UPDATE
-
-
-type Msg
-    = UrlChanged Url.Url
-    | LinkClicked UrlRequest
-    | ModeClicked
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -146,7 +131,7 @@ view model =
             case model.route.page of
                 Home ->
                     { title = "Yoshikuni Kato"
-                    , body = bodyList model [ homeView model ]
+                    , body = bodyList model [ homeView model.posts ]
                     }
 
                 Profile ->
@@ -194,8 +179,7 @@ bodyList model pageContent =
         [ div
             [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen" ]
             [ siteHeader model
-            , pageView
-                pageContent
+            , pageView pageContent
             ]
         ]
     ]
@@ -314,83 +298,3 @@ pageView contents =
             [ class "max-w-3xl mx-auto p-6 dark:text-white/80 text-lg" ]
             contents
         ]
-
-
-homeView : Model -> Html Msg
-homeView model =
-    div [ class "space-y-6" ] <|
-        homeTopArticleView
-            :: List.map postView model.posts
-
-
-homeJapaneseView : Html Msg
-homeJapaneseView =
-    div [] [ text "日本語のホーム" ]
-
-
-homeTopArticleView : Html Msg
-homeTopArticleView =
-    article
-        [ class "flex flex-col mt-6 mb-12 justify-center min-h-[320px]" ]
-        [ header
-            []
-            [ h1
-                [ class "text-4xl font-bold" ]
-                [ text "Hello, I’m Yoshikuni!" ]
-            ]
-        , section
-            [ class "my-4 text-base text-black/60 dark:text-white/60" ]
-            [ p
-                []
-                [ text "A software engineer with 8+ years of work experience in application development."
-                , br [] []
-                , text "Based in Amsterdam🇳🇱. Originally from Japan🇯🇵."
-                , br [] []
-                , a
-                    [ class "text-black/90 dark:text-white/90", href "/profile" ]
-                    [ text "Read my profile" ]
-                , text " to know more about me!"
-                ]
-            ]
-        , footer
-            []
-            [ div
-                [ class "flex py-3" ]
-                [ a
-                    [ href "https://github.com/yoching"
-                    , target "_blank"
-                    , rel "noopener noreferrer me"
-                    , title "Github"
-                    , class "mr-3"
-                    ]
-                    [ div [ class "h-7 w-7" ] [ githubIcon ] ]
-                , a
-                    [ href "https://twitter.com/yoshikuni_kato"
-                    , target "_blank"
-                    , rel "noopener noreferrer me"
-                    , title "Twitter"
-                    , class "mr-3"
-                    ]
-                    [ div [ class "h-7 w-7" ] [ twitterIcon ] ]
-                , a
-                    [ href "https://linkedin.com/in/yoshikunikato"
-                    , target "_blank"
-                    , rel "noopener noreferrer me"
-                    , title "Linkedin"
-                    ]
-                    [ div [ class "h-7 w-7" ] [ linkedInIcon ] ]
-                ]
-            ]
-        ]
-
-
-postDetailView : String -> Html msg
-postDetailView postId =
-    if postId == "report-2022q2" then
-        post1View
-
-    else if postId == "swift-haskell" then
-        post2View
-
-    else
-        text "Not Found"
