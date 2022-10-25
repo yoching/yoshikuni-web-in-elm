@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Browser exposing (..)
 import Browser.Navigation as Nav
@@ -111,17 +111,9 @@ update msg model =
                     ( { model | currentMode = Light }, Cmd.none )
 
 
-
--- SUBSCRIPTIONS
-
-
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.none
-
-
-
--- VIEW
 
 
 view : Model -> Document Msg
@@ -219,9 +211,6 @@ siteHeader model =
 
                 Light ->
                     lightModeIcon
-
-        activePageClass =
-            "font-medium border-b-2 border-current"
     in
     header
         [ class "dark:bg-zinc-900" ]
@@ -253,39 +242,36 @@ siteHeader model =
                 ]
             , ul
                 [ class "flex space-x-6 mx-6" ]
-                [ li
-                    []
-                    [ a
-                        [ title "Profile", href <| languagePath ++ "profile" ]
-                        [ span
-                            [ class <|
-                                case model.route.page of
-                                    Profile ->
-                                        activePageClass
-
-                                    _ ->
-                                        ""
-                            ]
-                            [ text "Profile" ]
-                        ]
-                    ]
-                , li
-                    []
-                    [ a
-                        [ title "Blog", href <| languagePath ++ "blog" ]
-                        [ span
-                            [ class <|
-                                case model.route.page of
-                                    Blog ->
-                                        activePageClass
-
-                                    _ ->
-                                        ""
-                            ]
-                            [ text "Blog" ]
-                        ]
-                    ]
+                [ headerMenuItem
+                    "Profile"
+                    (languagePath ++ "profile")
+                    (model.route.page == Profile)
+                , headerMenuItem
+                    "Blog"
+                    (languagePath ++ "blog")
+                    (model.route.page == Blog)
                 ]
+            ]
+        ]
+
+
+headerMenuItem : String -> String -> Bool -> Html msg
+headerMenuItem name link isActive =
+    let
+        className =
+            if isActive then
+                "font-medium border-b-2 border-current"
+
+            else
+                ""
+    in
+    li
+        []
+        [ a
+            [ title name, href link ]
+            [ span
+                [ class className ]
+                [ text name ]
             ]
         ]
 
