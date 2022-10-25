@@ -1,7 +1,6 @@
 module SvgImages exposing (..)
 
 import Html exposing (Html)
-import Html.Attributes exposing (class)
 import Svg
 import Svg.Attributes as SvgAttr
 
