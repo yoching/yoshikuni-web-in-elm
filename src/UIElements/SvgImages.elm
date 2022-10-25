@@ -1,4 +1,4 @@
-module SvgImages exposing (..)
+module UIElements.SvgImages exposing (..)
 
 import Html exposing (Html)
 import Svg

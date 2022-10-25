@@ -1,22 +1,12 @@
-module PostList exposing (..)
+module UIElements.PostEntryView exposing (..)
 
+import Entities.Post exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class, href)
-import Post exposing (Post)
 
 
-postsView : List Post -> Html msg
-postsView posts =
-    div [ class "space-y-6" ] <| List.map postView posts
-
-
-postsJapaneseView : Html msg
-postsJapaneseView =
-    div [] [ text "日本語のブログ" ]
-
-
-postView : Post -> Html msg
-postView post =
+postEntryView : Post -> Html msg
+postEntryView post =
     article
         [ class "relative bg-white dark:bg-[#2e2e33] rounded-lg shadow p-5 transition active:scale-95" ]
         [ header

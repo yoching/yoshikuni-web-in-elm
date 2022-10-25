@@ -1,12 +1,12 @@
-module Post2 exposing (..)
+module Pages.PostDetail.HaskellAndSwift exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, hidden, href, id, style, tabindex)
-import PostDetailElements exposing (..)
+import Pages.PostDetail.PostDetailElements exposing (..)
 
 
-post2View : Html msg
-post2View =
+haskellAndSwiftDetailView : Html msg
+haskellAndSwiftDetailView =
     article
         [ class "post-single" ]
         [ postDetailHeader "Haskell and Swift" "July 23, 2021 · 4 min"

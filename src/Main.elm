@@ -1,26 +1,20 @@
-module Main exposing (..)
-
--- import Hello.World exposing (hello)
+module Main exposing (main)
 
 import Browser exposing (..)
 import Browser.Navigation as Nav
+import Entities.Post exposing (Post)
 import Html exposing (..)
-import Html.Attributes exposing (class, href, rel, target, title)
+import Html.Attributes exposing (class, href, title)
 import Html.Events exposing (onClick)
-import Post exposing (Post)
-import Post1 exposing (post1View)
-import Post2 exposing (post2View)
-import PostList exposing (..)
-import Profile exposing (profileJapaneseView, profileView)
+import Pages.Home.Home exposing (..)
+import Pages.PostDetail.PostDetail exposing (postDetailView)
+import Pages.PostList.PostList exposing (..)
+import Pages.Profile.Profile exposing (profileJapaneseView, profileView)
 import Route exposing (..)
-import SvgImages exposing (..)
 import Time exposing (..)
+import UIElements.SvgImages exposing (..)
 import Url
 import Url.Parser
-
-
-
--- MODEL
 
 
 type alias Model =
@@ -47,12 +41,14 @@ modeClassName mode =
             "light"
 
 
-
--- MAIN
-
-
 type alias Flags =
     {}
+
+
+type Msg
+    = UrlChanged Url.Url
+    | LinkClicked UrlRequest
+    | ModeClicked
 
 
 main : Program Flags Model Msg
@@ -87,17 +83,6 @@ init _ url key =
             ( Model initialPosts Dark key url { page = Home, language = Default }, Cmd.none )
 
 
-
--- PORTS
--- UPDATE
-
-
-type Msg
-    = UrlChanged Url.Url
-    | LinkClicked UrlRequest
-    | ModeClicked
-
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -126,17 +111,9 @@ update msg model =
                     ( { model | currentMode = Light }, Cmd.none )
 
 
-
--- SUBSCRIPTIONS
-
-
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.none
-
-
-
--- VIEW
 
 
 view : Model -> Document Msg
@@ -146,7 +123,7 @@ view model =
             case model.route.page of
                 Home ->
                     { title = "Yoshikuni Kato"
-                    , body = bodyList model [ homeView model ]
+                    , body = bodyList model [ homeView model.posts ]
                     }
 
                 Profile ->
@@ -156,7 +133,7 @@ view model =
 
                 Blog ->
                     { title = "Blog"
-                    , body = bodyList model [ postsView model.posts ]
+                    , body = bodyList model [ postListView model.posts ]
                     }
 
                 Route.Post postId ->
@@ -178,7 +155,7 @@ view model =
 
                 Blog ->
                     { title = "Blog"
-                    , body = bodyList model [ postsJapaneseView ]
+                    , body = bodyList model [ postListJapaneseView ]
                     }
 
                 Route.Post postId ->
@@ -194,8 +171,7 @@ bodyList model pageContent =
         [ div
             [ class "bg-stone-100 dark:bg-zinc-900 min-h-screen" ]
             [ siteHeader model
-            , pageView
-                pageContent
+            , pageView pageContent
             ]
         ]
     ]
@@ -235,9 +211,6 @@ siteHeader model =
 
                 Light ->
                     lightModeIcon
-
-        activePageClass =
-            "font-medium border-b-2 border-current"
     in
     header
         [ class "dark:bg-zinc-900" ]
@@ -269,39 +242,36 @@ siteHeader model =
                 ]
             , ul
                 [ class "flex space-x-6 mx-6" ]
-                [ li
-                    []
-                    [ a
-                        [ title "Profile", href <| languagePath ++ "profile" ]
-                        [ span
-                            [ class <|
-                                case model.route.page of
-                                    Profile ->
-                                        activePageClass
-
-                                    _ ->
-                                        ""
-                            ]
-                            [ text "Profile" ]
-                        ]
-                    ]
-                , li
-                    []
-                    [ a
-                        [ title "Blog", href <| languagePath ++ "blog" ]
-                        [ span
-                            [ class <|
-                                case model.route.page of
-                                    Blog ->
-                                        activePageClass
-
-                                    _ ->
-                                        ""
-                            ]
-                            [ text "Blog" ]
-                        ]
-                    ]
+                [ headerMenuItem
+                    "Profile"
+                    (languagePath ++ "profile")
+                    (model.route.page == Profile)
+                , headerMenuItem
+                    "Blog"
+                    (languagePath ++ "blog")
+                    (model.route.page == Blog)
                 ]
+            ]
+        ]
+
+
+headerMenuItem : String -> String -> Bool -> Html msg
+headerMenuItem name link isActive =
+    let
+        className =
+            if isActive then
+                "font-medium border-b-2 border-current"
+
+            else
+                ""
+    in
+    li
+        []
+        [ a
+            [ title name, href link ]
+            [ span
+                [ class className ]
+                [ text name ]
             ]
         ]
 
@@ -314,83 +284,3 @@ pageView contents =
             [ class "max-w-3xl mx-auto p-6 dark:text-white/80 text-lg" ]
             contents
         ]
-
-
-homeView : Model -> Html Msg
-homeView model =
-    div [ class "space-y-6" ] <|
-        homeTopArticleView
-            :: List.map postView model.posts
-
-
-homeJapaneseView : Html Msg
-homeJapaneseView =
-    div [] [ text "日本語のホーム" ]
-
-
-homeTopArticleView : Html Msg
-homeTopArticleView =
-    article
-        [ class "flex flex-col mt-6 mb-12 justify-center min-h-[320px]" ]
-        [ header
-            []
-            [ h1
-                [ class "text-4xl font-bold" ]
-                [ text "Hello, I’m Yoshikuni!" ]
-            ]
-        , section
-            [ class "my-4 text-base text-black/60 dark:text-white/60" ]
-            [ p
-                []
-                [ text "A software engineer with 8+ years of work experience in application development."
-                , br [] []
-                , text "Based in Amsterdam🇳🇱. Originally from Japan🇯🇵."
-                , br [] []
-                , a
-                    [ class "text-black/90 dark:text-white/90", href "/profile" ]
-                    [ text "Read my profile" ]
-                , text " to know more about me!"
-                ]
-            ]
-        , footer
-            []
-            [ div
-                [ class "flex py-3" ]
-                [ a
-                    [ href "https://github.com/yoching"
-                    , target "_blank"
-                    , rel "noopener noreferrer me"
-                    , title "Github"
-                    , class "mr-3"
-                    ]
-                    [ div [ class "h-7 w-7" ] [ githubIcon ] ]
-                , a
-                    [ href "https://twitter.com/yoshikuni_kato"
-                    , target "_blank"
-                    , rel "noopener noreferrer me"
-                    , title "Twitter"
-                    , class "mr-3"
-                    ]
-                    [ div [ class "h-7 w-7" ] [ twitterIcon ] ]
-                , a
-                    [ href "https://linkedin.com/in/yoshikunikato"
-                    , target "_blank"
-                    , rel "noopener noreferrer me"
-                    , title "Linkedin"
-                    ]
-                    [ div [ class "h-7 w-7" ] [ linkedInIcon ] ]
-                ]
-            ]
-        ]
-
-
-postDetailView : String -> Html msg
-postDetailView postId =
-    if postId == "report-2022q2" then
-        post1View
-
-    else if postId == "swift-haskell" then
-        post2View
-
-    else
-        text "Not Found"
