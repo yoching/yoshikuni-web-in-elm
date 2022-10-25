@@ -7,8 +7,8 @@ import Html exposing (..)
 import Html.Attributes exposing (class, href, title)
 import Html.Events exposing (onClick)
 import Pages.Home.Home exposing (..)
+import Pages.PostDetail.PostDetail exposing (postDetailView)
 import Pages.PostList.PostList exposing (..)
-import Pages.PostPage.PostDetail exposing (postDetailView)
 import Pages.Profile.Profile exposing (profileJapaneseView, profileView)
 import Route exposing (..)
 import Time exposing (..)
@@ -133,7 +133,7 @@ view model =
 
                 Blog ->
                     { title = "Blog"
-                    , body = bodyList model [ postsView model.posts ]
+                    , body = bodyList model [ postListView model.posts ]
                     }
 
                 Route.Post postId ->
@@ -155,7 +155,7 @@ view model =
 
                 Blog ->
                     { title = "Blog"
-                    , body = bodyList model [ postsJapaneseView ]
+                    , body = bodyList model [ postListJapaneseView ]
                     }
 
                 Route.Post postId ->

@@ -1,8 +1,8 @@
-module Pages.PostPage.PostDetail exposing (..)
+module Pages.PostDetail.PostDetail exposing (..)
 
 import Html exposing (Html, text)
-import Pages.PostPage.Post1 exposing (post1View)
-import Pages.PostPage.Post2 exposing (post2View)
+import Pages.PostDetail.Post1 exposing (post1View)
+import Pages.PostDetail.Post2 exposing (post2View)
 
 
 postDetailView : String -> Html msg

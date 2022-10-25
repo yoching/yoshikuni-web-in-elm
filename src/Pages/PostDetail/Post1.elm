@@ -1,8 +1,8 @@
-module Pages.PostPage.Post1 exposing (..)
+module Pages.PostDetail.Post1 exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, href, src, title)
-import Pages.PostPage.PostDetailElements exposing (..)
+import Pages.PostDetail.PostDetailElements exposing (..)
 
 
 post1View : Html msg

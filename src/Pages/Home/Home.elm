@@ -1,9 +1,9 @@
-module Pages.Home.Home exposing (..)
+module Pages.Home.Home exposing (homeJapaneseView, homeView)
 
 import Entities.Post exposing (Post)
 import Html exposing (..)
 import Html.Attributes exposing (class, href, rel, target, title)
-import UIElements.PostEntryView exposing (postView)
+import UIElements.PostEntryView exposing (postEntryView)
 import UIElements.SvgImages exposing (..)
 
 
@@ -11,7 +11,7 @@ homeView : List Post -> Html msg
 homeView posts =
     div [ class "space-y-6" ] <|
         homeTopArticleView
-            :: List.map postView posts
+            :: List.map postEntryView posts
 
 
 homeJapaneseView : Html msg

@@ -1,4 +1,4 @@
-module Pages.PostPage.PostDetailElements exposing (..)
+module Pages.PostDetail.PostDetailElements exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, href, title)

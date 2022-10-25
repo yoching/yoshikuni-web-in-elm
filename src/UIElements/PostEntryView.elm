@@ -5,8 +5,8 @@ import Html exposing (..)
 import Html.Attributes exposing (class, href)
 
 
-postView : Post -> Html msg
-postView post =
+postEntryView : Post -> Html msg
+postEntryView post =
     article
         [ class "relative bg-white dark:bg-[#2e2e33] rounded-lg shadow p-5 transition active:scale-95" ]
         [ header

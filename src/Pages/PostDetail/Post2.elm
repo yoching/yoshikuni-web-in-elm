@@ -1,8 +1,8 @@
-module Pages.PostPage.Post2 exposing (..)
+module Pages.PostDetail.Post2 exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, hidden, href, id, style, tabindex)
-import Pages.PostPage.PostDetailElements exposing (..)
+import Pages.PostDetail.PostDetailElements exposing (..)
 
 
 post2View : Html msg
