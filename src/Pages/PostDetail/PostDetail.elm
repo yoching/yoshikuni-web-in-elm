@@ -1,17 +1,13 @@
 module Pages.PostDetail.PostDetail exposing (..)
 
 import Html exposing (Html, text)
-import Pages.PostDetail.Post1 exposing (post1View)
-import Pages.PostDetail.Post2 exposing (post2View)
+import Pages.PostDetail.HaskellAndSwift exposing (haskellAndSwiftDetailView)
 
 
 postDetailView : String -> Html msg
 postDetailView postId =
-    if postId == "report-2022q2" then
-        post1View
-
-    else if postId == "swift-haskell" then
-        post2View
+    if postId == "swift-haskell" then
+        haskellAndSwiftDetailView
 
     else
         text "Not Found"
