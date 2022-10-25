@@ -1,8 +1,8 @@
-module PostList exposing (..)
+module Pages.PostList.PostList exposing (..)
 
+import Entities.Post exposing (Post)
 import Html exposing (..)
 import Html.Attributes exposing (class, href)
-import Post exposing (Post)
 
 
 postsView : List Post -> Html msg

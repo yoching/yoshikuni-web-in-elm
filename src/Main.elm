@@ -4,17 +4,17 @@ module Main exposing (..)
 
 import Browser exposing (..)
 import Browser.Navigation as Nav
+import Entities.Post exposing (Post)
 import Html exposing (..)
 import Html.Attributes exposing (class, href, rel, target, title)
 import Html.Events exposing (onClick)
-import Post exposing (Post)
-import Post1 exposing (post1View)
-import Post2 exposing (post2View)
-import PostList exposing (..)
-import Profile exposing (profileJapaneseView, profileView)
+import Pages.PostList.PostList exposing (..)
+import Pages.PostPage.Post1 exposing (post1View)
+import Pages.PostPage.Post2 exposing (post2View)
+import Pages.Profile.Profile exposing (profileJapaneseView, profileView)
 import Route exposing (..)
-import SvgImages exposing (..)
 import Time exposing (..)
+import UIElements.SvgImages exposing (..)
 import Url
 import Url.Parser
 

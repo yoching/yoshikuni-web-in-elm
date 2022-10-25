@@ -1,4 +1,4 @@
-module Post exposing (..)
+module Entities.Post exposing (..)
 
 
 type alias Post =
