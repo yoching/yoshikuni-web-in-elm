@@ -33,12 +33,3 @@ routeParser =
         , map (\pageId -> { page = Post pageId, language = Japanese }) (s "jp" </> s "blog" </> string)
         , map { page = Home, language = Default } top
         ]
-
-
-
--- createJapaneseRoute : Page -> Route
--- createJapaneseRoute page =
---     { page = page, language = Japanese }
--- post : Parser (Route -> a) a
--- post =
---     map Post
