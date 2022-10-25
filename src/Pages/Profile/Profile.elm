@@ -15,7 +15,7 @@ profileView =
             , div
                 [ class "my-8" ]
                 [ img
-                    [ src "require:src/img/profile.png", class "w-48 mx-auto my-2 rounded" ]
+                    [ src "require:src/static/images/profile.png", class "w-48 mx-auto my-2 rounded" ]
                     []
                 ]
             , div
