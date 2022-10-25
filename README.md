@@ -1,4 +1,4 @@
-# yoshikuni-web-manual
+# yoshikuni-web-in-elm
 
 This is a sample web app written in Elm + TailwindCSS.  
 You can also visit the actual site [here](https://yoshikuni-web.web.app/).  
