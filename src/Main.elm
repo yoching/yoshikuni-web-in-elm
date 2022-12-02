@@ -1,18 +1,17 @@
-module Main exposing (main)
+module Main exposing (Flags, Mode, Model, Msg, main)
 
-import Browser exposing (..)
+import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation as Nav
 import Entities.Post exposing (Post)
 import Html exposing (..)
 import Html.Attributes exposing (class, href, title)
 import Html.Events exposing (onClick)
-import Pages.Home.Home exposing (..)
+import Pages.Home.Home exposing (homeJapaneseView, homeView)
 import Pages.PostDetail.PostDetail exposing (postDetailView)
-import Pages.PostList.PostList exposing (..)
+import Pages.PostList.PostList exposing (postListJapaneseView, postListView)
 import Pages.Profile.Profile exposing (profileJapaneseView, profileView)
-import Route exposing (..)
-import Time exposing (..)
-import UIElements.SvgImages exposing (..)
+import Route exposing (Language(..), Page(..), Route, routeParser)
+import UIElements.SvgImages exposing (darkModeIcon, lightModeIcon)
 import Url
 import Url.Parser
 
@@ -180,6 +179,7 @@ bodyList model pageContent =
 siteHeader : Model -> Html Msg
 siteHeader model =
     let
+        languagePath : String
         languagePath =
             case model.route.language of
                 Default ->
@@ -188,6 +188,7 @@ siteHeader model =
                 Japanese ->
                     "/jp/"
 
+        languageSwitchPath : String
         languageSwitchPath =
             case model.route.language of
                 Default ->
@@ -196,6 +197,7 @@ siteHeader model =
                 Japanese ->
                     "/"
 
+        languageSwitchTitle : String
         languageSwitchTitle =
             case model.route.language of
                 Default ->
@@ -204,6 +206,7 @@ siteHeader model =
                 Japanese ->
                     "English"
 
+        modeIcon : Html msg
         modeIcon =
             case model.currentMode of
                 Dark ->
@@ -258,6 +261,7 @@ siteHeader model =
 headerMenuItem : String -> String -> Bool -> Html msg
 headerMenuItem name link isActive =
     let
+        className : String
         className =
             if isActive then
                 "font-medium border-b-2 border-current"

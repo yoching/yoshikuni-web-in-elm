@@ -1,4 +1,4 @@
-module Pages.PostList.PostList exposing (..)
+module Pages.PostList.PostList exposing (postListJapaneseView, postListView)
 
 import Entities.Post exposing (Post)
 import Html exposing (..)

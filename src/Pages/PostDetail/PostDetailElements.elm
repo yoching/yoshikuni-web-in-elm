@@ -1,7 +1,7 @@
-module Pages.PostDetail.PostDetailElements exposing (..)
+module Pages.PostDetail.PostDetailElements exposing (codeBlock, codeInline, postContentH3, postContentP, postDetailH2, postDetailHeader, postDetailHr)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, href, title)
+import Html.Attributes exposing (class, href)
 
 
 postDetailHeader : String -> String -> Html msg
@@ -38,12 +38,6 @@ postDetailH2 : List (Attribute msg) -> List (Html msg) -> Html msg
 postDetailH2 attributes content =
     h2 (class "text-3xl font-bold mt-8 mb-6" :: attributes)
         content
-
-
-descriptionA : String -> String -> Html msg
-descriptionA title link =
-    a [ href link, class "underline underline-offset-4" ]
-        [ text title ]
 
 
 postContentP : List (Attribute msg) -> List (Html msg) -> Html msg

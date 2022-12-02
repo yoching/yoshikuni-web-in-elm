@@ -1,4 +1,4 @@
-module Pages.PostDetail.PostDetail exposing (..)
+module Pages.PostDetail.PostDetail exposing (postDetailView)
 
 import Html exposing (Html, text)
 import Pages.PostDetail.HaskellAndSwift exposing (haskellAndSwiftDetailView)

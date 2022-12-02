@@ -1,4 +1,4 @@
-module Pages.PostDetail.HaskellAndSwift exposing (..)
+module Pages.PostDetail.HaskellAndSwift exposing (haskellAndSwiftDetailView)
 
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, hidden, href, id, style, tabindex)

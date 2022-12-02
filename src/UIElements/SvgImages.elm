@@ -1,4 +1,4 @@
-module UIElements.SvgImages exposing (..)
+module UIElements.SvgImages exposing (darkModeIcon, githubIcon, lightModeIcon, linkedInIcon, twitterIcon)
 
 import Html exposing (Html)
 import Svg

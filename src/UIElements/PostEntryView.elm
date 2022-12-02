@@ -1,6 +1,6 @@
-module UIElements.PostEntryView exposing (..)
+module UIElements.PostEntryView exposing (postEntryView)
 
-import Entities.Post exposing (..)
+import Entities.Post exposing (Post)
 import Html exposing (..)
 import Html.Attributes exposing (class, href)
 

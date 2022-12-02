@@ -1,4 +1,4 @@
-module Pages.Profile.Profile exposing (..)
+module Pages.Profile.Profile exposing (profileJapaneseView, profileView)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, href, src)
