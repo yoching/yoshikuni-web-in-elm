@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production",
     "dev": "webpack serve --mode=development --port 3000",
+    "review": "elm-review",
     "deploy": "webpack --mode=production && firebase deploy"
   },
   "author": "",
